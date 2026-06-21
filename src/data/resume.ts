@@ -115,7 +115,7 @@ export const resume = {
         "Continuous facial recognition during operation",
         "Real-time unauthorized access detection",
       ],
-      images: ["/Lic_1.png", "/Lic_2.png", "/Lic_3.png"],
+      images: ["/Lic_1.png", "/Lic_2.png", "/Lic_3.png", "/Lic_4.png"],
     },
     {
       title: "Compact Agricultural E-Transportation Vehicle",
