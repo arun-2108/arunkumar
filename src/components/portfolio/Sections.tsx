@@ -29,6 +29,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 
 /* ---------- shared bits ---------- */
@@ -316,10 +317,48 @@ export function Experience() {
 /* ---------- PROJECTS ---------- */
 
 export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string) => void }) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [totalSlides, setTotalSlides] = useState(0);
+  const [isInteracted, setIsInteracted] = useState(false);
+
+  useEffect(() => {
+    if (!api) return;
+
+    setTotalSlides(api.scrollSnapList().length);
+    setCurrentIndex(api.selectedScrollSnap());
+
+    const onSelect = () => {
+      setCurrentIndex(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
+  }, [api]);
+
+  useEffect(() => {
+    if (!api || isInteracted) return;
+
+    const interval = setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0); // loop back to first project
+      }
+    }, 3000); // auto-scrolls every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [api, isInteracted]);
+
   return (
     <section id="projects" className="relative py-32 px-6 overflow-hidden">
       <div className="mx-auto max-w-7xl">
-        <Carousel opts={{ align: "start" }} className="w-full relative">
+        <Carousel setApi={setApi} opts={{ align: "start", loop: true }} className="w-full relative">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
             <div className="max-w-2xl">
               <div className="flex items-center gap-2 font-mono text-xs tracking-widest text-accent uppercase mb-4">
@@ -333,13 +372,58 @@ export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string
                 coursework deliverable.
               </p>
             </div>
-            <div className="flex gap-3 shrink-0 mb-2">
-              <CarouselPrevious className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-12 w-12 border border-border bg-surface/60 hover:scale-110 hover:border-accent/60 hover:bg-accent/15 hover:text-accent hover:shadow-[0_0_20px_color-mix(in_oklab,var(--accent)_30%,transparent)] active:scale-95 text-foreground cursor-pointer flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none" />
-              <CarouselNext className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-12 w-12 border border-border bg-surface/60 hover:scale-110 hover:border-accent/60 hover:bg-accent/15 hover:text-accent hover:shadow-[0_0_20px_color-mix(in_oklab,var(--accent)_30%,transparent)] active:scale-95 text-foreground cursor-pointer flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none" />
+
+            {/* Premium Control Deck Console */}
+            <div className="flex items-center gap-3 bg-surface/80 backdrop-blur-md border border-border px-4 py-2.5 rounded-full shadow-elegant transition-all duration-300 hover:border-primary/40 shrink-0 mb-2 select-none">
+              {/* Autoplay Active Pulse Indicator */}
+              <div className="flex items-center gap-2 pr-3 border-r border-border/40">
+                <span
+                  className={`h-2 w-2 rounded-full transition-all duration-500 ${
+                    isInteracted
+                      ? "bg-muted-foreground/50"
+                      : "bg-accent animate-pulse-glow shadow-[0_0_8px_color-mix(in_oklab,var(--accent)_80%,transparent)]"
+                  }`}
+                />
+                <span className="text-[9px] font-mono text-muted-foreground tracking-widest uppercase">
+                  {isInteracted ? "Manual" : "Auto"}
+                </span>
+              </div>
+
+              {/* Prev Button */}
+              <button
+                onClick={() => {
+                  api?.scrollPrev();
+                  setIsInteracted(true);
+                }}
+                className="h-8 w-8 rounded-full border border-border/80 bg-background hover:bg-accent hover:text-accent-foreground text-foreground cursor-pointer flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200 disabled:opacity-30 disabled:pointer-events-none"
+                disabled={!api?.canScrollPrev()}
+                aria-label="Previous slide"
+              >
+                <ChevronLeft size={16} />
+              </button>
+
+              {/* Index Indicator */}
+              <span className="text-xs font-mono text-foreground font-semibold px-1 min-w-[36px] text-center">
+                {String(currentIndex + 1).padStart(2, "0")} /{" "}
+                {String(totalSlides || 1).padStart(2, "0")}
+              </span>
+
+              {/* Next Button */}
+              <button
+                onClick={() => {
+                  api?.scrollNext();
+                  setIsInteracted(true);
+                }}
+                className="h-8 w-8 rounded-full border border-border/80 bg-background hover:bg-accent hover:text-accent-foreground text-foreground cursor-pointer flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-200 disabled:opacity-30 disabled:pointer-events-none"
+                disabled={!api?.canScrollNext()}
+                aria-label="Next slide"
+              >
+                <ChevronRight size={16} />
+              </button>
             </div>
           </div>
 
-          <CarouselContent className="-ml-6">
+          <CarouselContent className="-ml-6" onClickCapture={() => setIsInteracted(true)}>
             {resume.projects.map((p, i) => (
               <CarouselItem key={p.title} className="pl-6 md:basis-1/2 flex">
                 <Reveal delay={i * 0.05} className="h-full w-full flex">
