@@ -42,9 +42,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const resendApiKey = process.env.RESEND_API_KEY;
     const recipientEmail = process.env.CONTACT_RECEIVER_EMAIL || "arunpvtz2108@gmail.com";
 
+    // Format plain text backup email (defined early for dev mock logging)
+    const emailText = `
+New Portfolio Message Received
+==============================
+Name: ${body.name}
+Email: ${body.email}
+${body.company ? `Company: ${body.company}\n` : ""}Subject: ${body.subject}
+Message:
+${body.message}
+
+Submitted at: ${new Date().toString()}
+    `;
+
     if (!resendApiKey) {
+      const isLocalDev = process.env.NODE_ENV === "development" || !process.env.VERCEL;
+      if (isLocalDev) {
+        console.warn("--- DEVELOPMENT MOCK EMAIL DISPATCH ---");
+        console.warn("To:", recipientEmail);
+        console.warn("Subject:", body.subject);
+        console.warn("Text Content:", emailText);
+        console.warn("---------------------------------------");
+        // Simulate network delay
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        return res
+          .status(200)
+          .json({ success: true, message: "Message simulated successfully in development mode." });
+      }
+
       console.error("RESEND_API_KEY environment variable is not defined.");
-      return res.status(500).json({ error: "Internal Server Error" });
+      return res
+        .status(500)
+        .json({
+          error: "Configuration Error: RESEND_API_KEY is not defined on the host environment.",
+        });
     }
 
     const resend = new Resend(resendApiKey);
@@ -116,18 +147,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       </html>
     `;
 
-    // Format plain text backup email
-    const emailText = `
-New Portfolio Message Received
-==============================
-Name: ${body.name}
-Email: ${body.email}
-${body.company ? `Company: ${body.company}\n` : ""}Subject: ${body.subject}
-Message:
-${body.message}
-
-Submitted at: ${new Date().toString()}
-    `;
+    // emailText is already defined above
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
