@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Nav } from "@/components/portfolio/Nav";
 import { BananaCaseStudy } from "@/components/portfolio/BananaCaseStudy";
 import { AuthenDriveCaseStudy } from "@/components/portfolio/AuthenDriveCaseStudy";
+import { BananaVehicleCaseStudy } from "@/components/portfolio/BananaVehicleCaseStudy";
 import {
   Hero,
   About,
@@ -33,6 +34,8 @@ export default function App() {
       setActiveCaseStudy("Mobile Banana Processing Unit");
     } else if (title === "Driver Authentication & Monitoring System") {
       setActiveCaseStudy("Driver Authentication & Monitoring System");
+    } else if (title === "Compact Agricultural E-Transportation Vehicle") {
+      setActiveCaseStudy("Compact Agricultural E-Transportation Vehicle");
     } else {
       toast.info(`Case study for "${title}" is in development!`, {
         description: "The complete design and documentation will be published soon.",
@@ -55,6 +58,8 @@ export default function App() {
         <BananaCaseStudy onClose={handleCloseCaseStudy} />
       ) : activeCaseStudy === "Driver Authentication & Monitoring System" ? (
         <AuthenDriveCaseStudy onClose={handleCloseCaseStudy} />
+      ) : activeCaseStudy === "Compact Agricultural E-Transportation Vehicle" ? (
+        <BananaVehicleCaseStudy onClose={handleCloseCaseStudy} />
       ) : (
         <>
           <Nav />
