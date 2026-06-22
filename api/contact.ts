@@ -80,65 +80,53 @@ Submitted at: ${new Date().toString()}
 
     const resend = new Resend(resendApiKey);
 
-    // Format professional HTML email
+    // Format professional HTML email with inline styles (since Gmail/email clients strip out <style> blocks)
     const emailHtml = `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <title>New Contact Form Submission</title>
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; line-height: 1.6; margin: 0; padding: 0; background-color: #f8fafc; }
-            .wrapper { padding: 40px 20px; }
-            .container { max-width: 600px; margin: 0 auto; padding: 32px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); }
-            .header { border-bottom: 2px solid #3b82f6; padding-bottom: 16px; margin-bottom: 24px; }
-            .header h2 { margin: 0; color: #1e3a8a; font-size: 20px; font-weight: 700; }
-            .field { margin-bottom: 20px; }
-            .label { font-family: monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px; }
-            .value { background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap; }
-            .value a { color: #3b82f6; text-decoration: none; }
-            .footer { margin-top: 32px; font-size: 11px; color: #94a3b8; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; font-family: monospace; }
-          </style>
         </head>
-        <body>
-          <div class="wrapper">
-            <div class="container">
-              <div class="header">
-                <h2>New Portfolio Message Received</h2>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; line-height: 1.6; margin: 0; padding: 0; background-color: #f8fafc;">
+          <div style="padding: 40px 20px;">
+            <div style="max-width: 580px; margin: 0 auto; padding: 32px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+              <div style="border-bottom: 2px solid #3b82f6; padding-bottom: 16px; margin-bottom: 24px;">
+                <h2 style="margin: 0; color: #1e3a8a; font-size: 20px; font-weight: 700;">New Portfolio Message Received</h2>
               </div>
               
-              <div class="field">
-                <div class="label">Name</div>
-                <div class="value">${body.name}</div>
+              <div style="margin-bottom: 20px;">
+                <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Name</div>
+                <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.name}</div>
               </div>
               
-              <div class="field">
-                <div class="label">Email Address</div>
-                <div class="value"><a href="mailto:${body.email}">${body.email}</a></div>
+              <div style="margin-bottom: 20px;">
+                <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Email Address</div>
+                <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;"><a href="mailto:${body.email}" style="color: #3b82f6; text-decoration: none;">${body.email}</a></div>
               </div>
               
               ${
                 body.company
                   ? `
-              <div class="field">
-                <div class="label">Company / Organization</div>
-                <div class="value">${body.company}</div>
+              <div style="margin-bottom: 20px;">
+                <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Company / Organization</div>
+                <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.company}</div>
               </div>
               `
                   : ""
               }
               
-              <div class="field">
-                <div class="label">Subject</div>
-                <div class="value">${body.subject}</div>
+              <div style="margin-bottom: 20px;">
+                <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Subject</div>
+                <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.subject}</div>
               </div>
               
-              <div class="field">
-                <div class="label">Message</div>
-                <div class="value">${body.message}</div>
+              <div style="margin-bottom: 20px;">
+                <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Message</div>
+                <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.message}</div>
               </div>
               
-              <div class="footer">
+              <div style="margin-top: 32px; font-size: 11px; color: #94a3b8; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; font-family: 'Courier New', Courier, monospace;">
                 Submitted on ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })} (IST) from Portfolio.
               </div>
             </div>
