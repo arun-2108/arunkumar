@@ -299,7 +299,7 @@ export function Experience() {
 
 /* ---------- PROJECTS ---------- */
 
-export function Projects() {
+export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string) => void }) {
   return (
     <section id="projects" className="relative py-32 px-6">
       <div className="mx-auto max-w-7xl">
@@ -354,7 +354,10 @@ export function Projects() {
                   </div>
 
                   <div className="mt-6 pt-4 border-t border-border/40">
-                    <button className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent transition group/btn">
+                    <button
+                      onClick={() => onViewCaseStudy?.(p.title)}
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent transition group/btn cursor-pointer"
+                    >
                       View Case Study
                       <ArrowUpRight
                         size={16}
