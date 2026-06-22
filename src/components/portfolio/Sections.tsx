@@ -147,7 +147,9 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <p className="mt-6 max-w-2xl text-lg text-muted-foreground/90 leading-relaxed font-light">{resume.hero.sub}</p>
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground/90 leading-relaxed font-light">
+              {resume.hero.sub}
+            </p>
           </Reveal>
 
           <Reveal delay={0.15}>
@@ -157,14 +159,20 @@ export function Hero() {
                 download
                 className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-glow px-6 py-3 text-sm font-medium text-primary-foreground glow-ring transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
-                <Download size={16} className="transition-transform group-hover:translate-y-0.5 duration-200" />
+                <Download
+                  size={16}
+                  className="transition-transform group-hover:translate-y-0.5 duration-200"
+                />
                 Download Resume
               </a>
               <a
                 href="#contact"
                 className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium text-foreground hover:bg-surface hover:border-primary/40 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
-                <Mail size={16} className="text-muted-foreground group-hover:text-accent transition-colors duration-200" />
+                <Mail
+                  size={16}
+                  className="text-muted-foreground group-hover:text-accent transition-colors duration-200"
+                />
                 Get in Touch
               </a>
             </div>
@@ -174,19 +182,31 @@ export function Hero() {
           <Reveal delay={0.2}>
             <div className="mt-12 pt-6 border-t border-border/40 flex flex-wrap gap-x-8 gap-y-4 text-xs font-mono text-muted-foreground tracking-wider">
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
-                <Rocket size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <Rocket
+                  size={14}
+                  className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0"
+                />
                 <span>Founder, EAURA Pvt Ltd</span>
               </div>
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
-                <FlaskConical size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <FlaskConical
+                  size={14}
+                  className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0"
+                />
                 <span>ASME Research Author</span>
               </div>
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
-                <Cpu size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <Cpu
+                  size={14}
+                  className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0"
+                />
                 <span>CAD • FEA • Simulation</span>
               </div>
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
-                <PenTool size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <PenTool
+                  size={14}
+                  className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0"
+                />
                 <span>Product Designer & Engineer</span>
               </div>
             </div>
@@ -196,10 +216,12 @@ export function Hero() {
           <Reveal delay={0.25}>
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] font-mono text-muted-foreground/75 tracking-widest uppercase">
               <div className="flex items-center gap-2">
-                <MapPin size={12} className="text-muted-foreground/60" /> {resume.location.toUpperCase()}
+                <MapPin size={12} className="text-muted-foreground/60" />{" "}
+                {resume.location.toUpperCase()}
               </div>
               <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow" /> AVAILABLE FOR COLLAB
+                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow" /> AVAILABLE
+                FOR COLLAB
               </div>
             </div>
           </Reveal>
@@ -276,24 +298,51 @@ export function About() {
         </Reveal>
 
         {/* Narrative Story */}
-        <Reveal delay={0.1} className="mt-8 space-y-5 text-base text-muted-foreground/90 leading-relaxed font-light">
+        <Reveal
+          delay={0.1}
+          className="mt-8 space-y-5 text-base text-muted-foreground/90 leading-relaxed font-light"
+        >
           <p>
-            I've always been fascinated by how things work—not just on a screen, but in the physical world. Growing up, I found myself drawn to the tangible, complex beauty of machinery and systems. That curiosity naturally led me to pursue a B.Tech in Smart Manufacturing at IIITDM Kancheepuram, where I began bridging the gap between classical mechanical design and modern digital automation. To me, engineering isn't just about drafting CAD models; it's the art of bringing static ideas into dynamic, functional existence.
+            I've always been fascinated by how things work—not just on a screen, but in the physical
+            world. Growing up, I found myself drawn to the tangible, complex beauty of machinery and
+            systems. That curiosity naturally led me to pursue a B.Tech in Smart Manufacturing at
+            IIITDM Kancheepuram, where I began bridging the gap between classical mechanical design
+            and modern digital automation. To me, engineering isn't just about drafting CAD models;
+            it's the art of bringing static ideas into dynamic, functional existence.
           </p>
           <p>
-            What truly drives me is the intersection of mechanical engineering, AI, and entrepreneurship. I believe that next-generation industrial systems shouldn't just be robust; they should be intelligent. This philosophy led me to found Eaura, a government-approved startup where we are creating a voice-first AI companion paired with dedicated, hardware-ambient components to help senior citizens live independently. Navigating the challenge of designing hardware that integrates seamlessly with complex software has refined my product development mindset.
+            What truly drives me is the intersection of mechanical engineering, AI, and
+            entrepreneurship. I believe that next-generation industrial systems shouldn't just be
+            robust; they should be intelligent. This philosophy led me to found Eaura, a
+            government-approved startup where we are creating a voice-first AI companion paired with
+            dedicated, hardware-ambient components to help senior citizens live independently.
+            Navigating the challenge of designing hardware that integrates seamlessly with complex
+            software has refined my product development mindset.
           </p>
           <p>
-            Alongside my startup, my research has allowed me to dive deep into materials and automation, developing models to characterize auxetic honeycomb structures for ASME IMECE-INDIA and designing AI-driven separator units for Neyveli Lignite Corporation (NLC). Whether optimizing suspension dynamics for electric agricultural transport or building machine learning algorithms for industrial computer vision, I approach every challenge with the goal of creating validated, deployable prototypes that solve real-world problems.
+            Alongside my startup, my research has allowed me to dive deep into materials and
+            automation, developing models to characterize auxetic honeycomb structures for ASME
+            IMECE-INDIA and designing AI-driven separator units for Neyveli Lignite Corporation
+            (NLC). Whether optimizing suspension dynamics for electric agricultural transport or
+            building machine learning algorithms for industrial computer vision, I approach every
+            challenge with the goal of creating validated, deployable prototypes that solve
+            real-world problems.
           </p>
           <p>
-            Looking ahead, I am excited about a future where hardware and intelligent automation act as force multipliers for human potential. I want to build systems that improve lives—whether that means automating agricultural logistics, designing safer EV battery systems, or crafting inclusive consumer products. I'm always looking for collaborative projects, research partnerships, and forward-thinking teams that are eager to push the boundaries of what physical machines and smart systems can achieve together.
+            Looking ahead, I am excited about a future where hardware and intelligent automation act
+            as force multipliers for human potential. I want to build systems that improve
+            lives—whether that means automating agricultural logistics, designing safer EV battery
+            systems, or crafting inclusive consumer products. I'm always looking for collaborative
+            projects, research partnerships, and forward-thinking teams that are eager to push the
+            boundaries of what physical machines and smart systems can achieve together.
           </p>
         </Reveal>
 
         {/* Quick Facts Grid */}
         <Reveal delay={0.15}>
-          <h3 className="mt-10 text-xs font-mono uppercase tracking-widest text-accent/80">Quick Facts</h3>
+          <h3 className="mt-10 text-xs font-mono uppercase tracking-widest text-accent/80">
+            Quick Facts
+          </h3>
           <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
             {quickFacts.map((fact, i) => {
               const Icon = fact.icon;
@@ -309,9 +358,7 @@ export function About() {
                     <div className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground/60">
                       {fact.label}
                     </div>
-                    <div className="text-xs font-semibold text-foreground/90">
-                      {fact.detail}
-                    </div>
+                    <div className="text-xs font-semibold text-foreground/90">{fact.detail}</div>
                   </div>
                 </div>
               );
@@ -329,11 +376,21 @@ export function About() {
             <ul className="mt-4 space-y-2.5 text-xs text-muted-foreground/90 leading-relaxed font-light">
               <li className="flex gap-2.5 items-start">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0 animate-pulse-glow" />
-                <span>MVP development of NOVA (privacy-first AI assistant) and envx (secure env var sync) under the <strong className="font-semibold text-foreground/90">EAURA</strong> ecosystem.</span>
+                <span>
+                  MVP development of NOVA (privacy-first AI assistant) and envx (secure env var
+                  sync) under the{" "}
+                  <strong className="font-semibold text-foreground/90">EAURA</strong> ecosystem.
+                </span>
               </li>
               <li className="flex gap-2.5 items-start">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                <span>High-capacity battery packaging and composite enclosures at <strong className="font-semibold text-foreground/90">SRJ Energy (IITM Research Park)</strong>.</span>
+                <span>
+                  High-capacity battery packaging and composite enclosures at{" "}
+                  <strong className="font-semibold text-foreground/90">
+                    SRJ Energy (IITM Research Park)
+                  </strong>
+                  .
+                </span>
               </li>
             </ul>
           </div>
@@ -836,13 +893,12 @@ export function Startup() {
 
       <div className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-surface to-background p-8 md:p-14 shadow-elegant">
-          
           <div className="relative grid lg:grid-cols-[1.1fr,1fr] gap-12 lg:gap-16 items-start">
-            
             {/* Left Content Side */}
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-accent">
-                <Sparkles size={12} className="animate-pulse-glow" /> FLAGSHIP VENTURE • MVP DEVELOPMENT & BETA PREPARATION
+                <Sparkles size={12} className="animate-pulse-glow" /> FLAGSHIP VENTURE • MVP
+                DEVELOPMENT & BETA PREPARATION
               </div>
               <h2 className="mt-5 text-5xl md:text-6xl font-semibold tracking-tight text-gradient">
                 Eaura
@@ -852,27 +908,39 @@ export function Startup() {
               </div>
 
               <p className="mt-6 text-xl text-foreground/90 leading-relaxed font-light">
-                Eaura is building an ecosystem of AI-powered products that combine intelligent software, privacy-first architecture, and automation to solve meaningful real-world problems.
+                Eaura is building an ecosystem of AI-powered products that combine intelligent
+                software, privacy-first architecture, and automation to solve meaningful real-world
+                problems.
               </p>
-              
+
               <div className="mt-6 text-sm text-muted-foreground/85 leading-relaxed max-w-xl font-light">
-                NOVA and envx represent the first steps toward a broader platform spanning personal AI, developer tools, and intelligent systems.
+                NOVA and envx represent the first steps toward a broader platform spanning personal
+                AI, developer tools, and intelligent systems.
               </div>
 
               {/* Startup Info / Needs Section */}
               <div className="mt-8 grid sm:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent">Venture Status</h4>
+                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent">
+                    Venture Status
+                  </h4>
                   <div className="mt-2.5 p-4 rounded-xl border border-border bg-[#0a0f1e]/40">
                     <div className="text-sm font-semibold text-foreground/90">MVP Development</div>
-                    <div className="text-xs text-muted-foreground mt-1 font-light leading-relaxed">Refining on-device persistent memory engines and secure CLI synchronizers.</div>
+                    <div className="text-xs text-muted-foreground mt-1 font-light leading-relaxed">
+                      Refining on-device persistent memory engines and secure CLI synchronizers.
+                    </div>
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent mb-2.5">Currently Looking For</h4>
+                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent mb-2.5">
+                    Currently Looking For
+                  </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {lookingFor.map((item) => (
-                      <span key={item} className="text-[10px] font-mono border border-border bg-[#0a0f1e]/40 px-2.5 py-1 rounded-md text-muted-foreground hover:text-foreground transition duration-300">
+                      <span
+                        key={item}
+                        className="text-[10px] font-mono border border-border bg-[#0a0f1e]/40 px-2.5 py-1 rounded-md text-muted-foreground hover:text-foreground transition duration-300"
+                      >
                         {item}
                       </span>
                     ))}
@@ -882,7 +950,9 @@ export function Startup() {
 
               {/* Product Tabs Selector */}
               <div className="mt-12">
-                <h3 className="text-xs font-mono uppercase tracking-widest text-accent mb-4">Eaura Product Portfolio</h3>
+                <h3 className="text-xs font-mono uppercase tracking-widest text-accent mb-4">
+                  Eaura Product Portfolio
+                </h3>
                 <div className="flex border-b border-border/40">
                   <button
                     onClick={() => setActiveProduct("nova")}
@@ -909,16 +979,23 @@ export function Startup() {
                 <div className="mt-6">
                   {activeProduct === "nova" ? (
                     <div>
-                      <div className="text-base font-semibold text-foreground/90">NOVA — Proactive AI Companion</div>
+                      <div className="text-base font-semibold text-foreground/90">
+                        NOVA — Proactive AI Companion
+                      </div>
                       <p className="mt-2 text-xs text-muted-foreground leading-relaxed max-w-xl font-light font-sans">
-                        A proactive, privacy-first AI assistant that combines persistent memory, multi-agent orchestration, and edge computing to help users manage communication, wellness, and daily life.
+                        A proactive, privacy-first AI assistant that combines persistent memory,
+                        multi-agent orchestration, and edge computing to help users manage
+                        communication, wellness, and daily life.
                       </p>
                     </div>
                   ) : (
                     <div>
-                      <div className="text-base font-semibold text-foreground/90">envx — Secure Env Var Sync</div>
+                      <div className="text-base font-semibold text-foreground/90">
+                        envx — Secure Env Var Sync
+                      </div>
                       <p className="mt-2 text-xs text-muted-foreground leading-relaxed max-w-xl font-light font-sans">
-                        A developer-focused platform for secure environment variable synchronization and management across teams and projects.
+                        A developer-focused platform for secure environment variable synchronization
+                        and management across teams and projects.
                       </p>
                     </div>
                   )}
@@ -926,16 +1003,21 @@ export function Startup() {
 
                 {/* Future Product Expansion */}
                 <div className="mt-8 pt-6 border-t border-border/40">
-                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent mb-3">Future Product Expansion</h4>
+                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent mb-3">
+                    Future Product Expansion
+                  </h4>
                   <div className="flex flex-wrap gap-2">
                     {[
                       "AI Assistants",
                       "Automation Systems",
                       "Productivity Tools",
                       "Robotics",
-                      "Intelligent Hardware"
+                      "Intelligent Hardware",
                     ].map((fp) => (
-                      <span key={fp} className="text-[10px] font-mono border border-border bg-[#0a0f1e]/40 px-2.5 py-1 rounded-md text-muted-foreground hover:text-foreground transition duration-300">
+                      <span
+                        key={fp}
+                        className="text-[10px] font-mono border border-border bg-[#0a0f1e]/40 px-2.5 py-1 rounded-md text-muted-foreground hover:text-foreground transition duration-300"
+                      >
                         {fp}
                       </span>
                     ))}
@@ -965,7 +1047,7 @@ export function Startup() {
               <h3 className="text-xs font-mono uppercase tracking-widest text-accent/80 text-center lg:text-left">
                 {activeProduct === "nova" ? "NOVA Architecture Flow" : "envx Sync Security Flow"}
               </h3>
-              
+
               <div className="relative aspect-[5/3] w-full border border-border bg-[#0a0f1e]/60 backdrop-blur rounded-3xl p-6 overflow-hidden flex flex-col justify-between shadow-elegant">
                 {/* SVG Visualizer */}
                 <div className="flex-1 flex items-center justify-center min-h-[140px]">
@@ -980,7 +1062,12 @@ export function Startup() {
                       </defs>
 
                       {/* Connection flows */}
-                      <path d="M 50 110 C 100 110, 100 50, 150 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <path
+                        d="M 50 110 C 100 110, 100 50, 150 50"
+                        fill="none"
+                        stroke="oklch(1 0 0 / 8%)"
+                        strokeWidth="2"
+                      />
                       <motion.path
                         d="M 50 110 C 100 110, 100 50, 150 50"
                         fill="none"
@@ -991,7 +1078,12 @@ export function Startup() {
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
                       />
 
-                      <path d="M 150 50 C 200 50, 200 110, 250 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <path
+                        d="M 150 50 C 200 50, 200 110, 250 110"
+                        fill="none"
+                        stroke="oklch(1 0 0 / 8%)"
+                        strokeWidth="2"
+                      />
                       <motion.path
                         d="M 150 50 C 200 50, 200 110, 250 110"
                         fill="none"
@@ -1002,7 +1094,12 @@ export function Startup() {
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
                       />
 
-                      <path d="M 250 110 C 300 110, 300 50, 350 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <path
+                        d="M 250 110 C 300 110, 300 50, 350 50"
+                        fill="none"
+                        stroke="oklch(1 0 0 / 8%)"
+                        strokeWidth="2"
+                      />
                       <motion.path
                         d="M 250 110 C 300 110, 300 50, 350 50"
                         fill="none"
@@ -1013,7 +1110,12 @@ export function Startup() {
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
                       />
 
-                      <path d="M 350 50 C 400 50, 400 110, 450 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <path
+                        d="M 350 50 C 400 50, 400 110, 450 110"
+                        fill="none"
+                        stroke="oklch(1 0 0 / 8%)"
+                        strokeWidth="2"
+                      />
                       <motion.path
                         d="M 350 50 C 400 50, 400 110, 450 110"
                         fill="none"
@@ -1059,7 +1161,9 @@ export function Startup() {
                               y={node.y + 22}
                               textAnchor="middle"
                               className={`font-mono text-[9px] uppercase tracking-wider select-none pointer-events-none transition-all duration-300 ${
-                                isSelected ? "fill-accent font-semibold" : "fill-muted-foreground group-hover/node:fill-foreground"
+                                isSelected
+                                  ? "fill-accent font-semibold"
+                                  : "fill-muted-foreground group-hover/node:fill-foreground"
                               }`}
                             >
                               {node.label}
@@ -1079,7 +1183,12 @@ export function Startup() {
                       </defs>
 
                       {/* Connection flows */}
-                      <path d="M 60 100 C 115 100, 115 50, 170 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <path
+                        d="M 60 100 C 115 100, 115 50, 170 50"
+                        fill="none"
+                        stroke="oklch(1 0 0 / 8%)"
+                        strokeWidth="2"
+                      />
                       <motion.path
                         d="M 60 100 C 115 100, 115 50, 170 50"
                         fill="none"
@@ -1090,7 +1199,12 @@ export function Startup() {
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
                       />
 
-                      <path d="M 170 50 C 225 50, 225 100, 280 100" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <path
+                        d="M 170 50 C 225 50, 225 100, 280 100"
+                        fill="none"
+                        stroke="oklch(1 0 0 / 8%)"
+                        strokeWidth="2"
+                      />
                       <motion.path
                         d="M 170 50 C 225 50, 225 100, 280 100"
                         fill="none"
@@ -1101,7 +1215,12 @@ export function Startup() {
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
                       />
 
-                      <path d="M 280 100 C 335 100, 335 50, 390 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <path
+                        d="M 280 100 C 335 100, 335 50, 390 50"
+                        fill="none"
+                        stroke="oklch(1 0 0 / 8%)"
+                        strokeWidth="2"
+                      />
                       <motion.path
                         d="M 280 100 C 335 100, 335 50, 390 50"
                         fill="none"
@@ -1147,7 +1266,9 @@ export function Startup() {
                               y={node.y + 22}
                               textAnchor="middle"
                               className={`font-mono text-[9px] uppercase tracking-wider select-none pointer-events-none transition-all duration-300 ${
-                                isSelected ? "fill-accent font-semibold" : "fill-muted-foreground group-hover/node:fill-foreground"
+                                isSelected
+                                  ? "fill-accent font-semibold"
+                                  : "fill-muted-foreground group-hover/node:fill-foreground"
                               }`}
                             >
                               {node.label}
@@ -1169,11 +1290,8 @@ export function Startup() {
                   </p>
                 </div>
               </div>
-              
             </div>
-            
           </div>
-          
         </div>
       </div>
     </section>
@@ -1555,9 +1673,25 @@ export function Contact() {
               >
                 {status === "submitting" ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary-foreground"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Sending Message...
                   </>
@@ -1584,9 +1718,7 @@ export function Contact() {
 
               {status === "error" && (
                 <div className="mt-4 p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-light leading-relaxed animate-fade-in">
-                  <div className="font-semibold mb-1">
-                    Submission failed
-                  </div>
+                  <div className="font-semibold mb-1">Submission failed</div>
                   {errorMessage}
                 </div>
               )}
@@ -1671,9 +1803,7 @@ function Field({
           {label} {required && <span className="text-accent">*</span>}
         </span>
         {error && (
-          <span className="text-[9px] font-mono text-red-500/90 animate-pulse-glow">
-            {error}
-          </span>
+          <span className="text-[9px] font-mono text-red-500/90 animate-pulse-glow">{error}</span>
         )}
       </div>
       <div className="mt-1.5">

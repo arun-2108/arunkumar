@@ -172,7 +172,8 @@ export const resume = {
     founder: "Arunkumar S",
     role: "Founder & CEO",
     stage: "MVP Development & Beta Preparation",
-    takeaway: "Eaura is building an ecosystem of AI-powered products that combine intelligent software, privacy-first architecture, and automation to solve meaningful real-world problems. NOVA and envx represent the first steps toward a broader platform spanning personal AI, developer tools, and intelligent systems.",
+    takeaway:
+      "Eaura is building an ecosystem of AI-powered products that combine intelligent software, privacy-first architecture, and automation to solve meaningful real-world problems. NOVA and envx represent the first steps toward a broader platform spanning personal AI, developer tools, and intelligent systems.",
     lookingFor: [
       "Beta Testers",
       "Early Adopters",
@@ -188,21 +189,21 @@ export const resume = {
       nova: {
         name: "NOVA",
         tagline: "Proactive AI Companion",
-        desc: "A proactive, privacy-first AI assistant that combines persistent memory, multi-agent orchestration, and edge computing to help users manage communication, wellness, and daily life."
+        desc: "A proactive, privacy-first AI assistant that combines persistent memory, multi-agent orchestration, and edge computing to help users manage communication, wellness, and daily life.",
       },
       envx: {
         name: "envx",
         tagline: "Secure Secrets Sync",
-        desc: "A developer-focused platform for secure environment variable synchronization and management across teams and projects."
-      }
+        desc: "A developer-focused platform for secure environment variable synchronization and management across teams and projects.",
+      },
     },
     futureProducts: [
       "AI assistants",
       "Automation systems",
       "Productivity tools",
       "Robotics",
-      "Intelligent hardware"
-    ]
+      "Intelligent hardware",
+    ],
   },
 
   skills: [

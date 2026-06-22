@@ -1,32 +1,32 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { Resend } from 'resend';
-import { z } from 'zod';
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { Resend } from "resend";
+import { z } from "zod";
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, 'Name is required').max(100),
-  email: z.string().trim().email('Invalid email address'),
-  subject: z.string().trim().min(1, 'Subject is required').max(150),
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Invalid email address"),
+  subject: z.string().trim().min(1, "Subject is required").max(150),
   company: z.string().trim().max(100).optional(),
-  message: z.string().trim().min(1, 'Message is required').max(2000),
+  message: z.string().trim().min(1, "Message is required").max(2000),
   honeypot: z.string().max(100).optional(),
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS configuration
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
   res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
   );
 
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
@@ -34,17 +34,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const body = contactSchema.parse(req.body);
 
     // Honeypot check (spam prevention)
-    if (body.honeypot && body.honeypot.trim() !== '') {
+    if (body.honeypot && body.honeypot.trim() !== "") {
       // Silently discard and return fake success
-      return res.status(200).json({ success: true, message: 'Message sent successfully' });
+      return res.status(200).json({ success: true, message: "Message sent successfully" });
     }
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const recipientEmail = process.env.CONTACT_RECEIVER_EMAIL || 'arunpvtz2108@gmail.com';
+    const recipientEmail = process.env.CONTACT_RECEIVER_EMAIL || "arunpvtz2108@gmail.com";
 
     if (!resendApiKey) {
-      console.error('RESEND_API_KEY environment variable is not defined.');
-      return res.status(500).json({ error: 'Internal Server Error' });
+      console.error("RESEND_API_KEY environment variable is not defined.");
+      return res.status(500).json({ error: "Internal Server Error" });
     }
 
     const resend = new Resend(resendApiKey);
@@ -86,12 +86,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 <div class="value"><a href="mailto:${body.email}">${body.email}</a></div>
               </div>
               
-              ${body.company ? `
+              ${
+                body.company
+                  ? `
               <div class="field">
                 <div class="label">Company / Organization</div>
                 <div class="value">${body.company}</div>
               </div>
-              ` : ''}
+              `
+                  : ""
+              }
               
               <div class="field">
                 <div class="label">Subject</div>
@@ -104,7 +108,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               </div>
               
               <div class="footer">
-                Submitted on ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })} (IST) from Portfolio.
+                Submitted on ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })} (IST) from Portfolio.
               </div>
             </div>
           </div>
@@ -118,7 +122,7 @@ New Portfolio Message Received
 ==============================
 Name: ${body.name}
 Email: ${body.email}
-${body.company ? `Company: ${body.company}\n` : ''}Subject: ${body.subject}
+${body.company ? `Company: ${body.company}\n` : ""}Subject: ${body.subject}
 Message:
 ${body.message}
 
@@ -127,7 +131,7 @@ Submitted at: ${new Date().toString()}
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Portfolio Contact Form <onboarding@resend.dev>',
+      from: "Portfolio Contact Form <onboarding@resend.dev>",
       to: recipientEmail,
       subject: `[Portfolio] ${body.subject}`,
       replyTo: body.email,
@@ -136,17 +140,16 @@ Submitted at: ${new Date().toString()}
     });
 
     if (error) {
-      console.error('Resend Error:', error);
-      return res.status(500).json({ error: 'Failed to send message via Resend API' });
+      console.error("Resend Error:", error);
+      return res.status(500).json({ error: "Failed to send message via Resend API" });
     }
 
-    return res.status(200).json({ success: true, message: 'Message sent successfully', data });
-
+    return res.status(200).json({ success: true, message: "Message sent successfully", data });
   } catch (err) {
     if (err instanceof z.ZodError) {
-      return res.status(400).json({ error: 'Validation Error', details: err.errors });
+      return res.status(400).json({ error: "Validation Error", details: err.errors });
     }
-    console.error('Unknown Error:', err);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Unknown Error:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
