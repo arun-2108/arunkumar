@@ -183,7 +183,7 @@ export function Hero() {
               </div>
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
                 <Cpu size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
-                <span>Battery Systems Researcher</span>
+                <span>CAD • FEA • Simulation</span>
               </div>
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
                 <PenTool size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
