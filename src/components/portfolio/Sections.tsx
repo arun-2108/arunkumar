@@ -734,58 +734,258 @@ function StatusBadge({ status }: { status: string }) {
 
 export function Startup() {
   const s = resume.startup;
-  return (
-    <section id="startup" className="relative py-32 px-6">
-      <div className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-surface to-background p-8 md:p-14">
-          <div className="absolute inset-0 bg-grid opacity-50" />
-          <div className="absolute -top-32 -right-32 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
-          <div className="absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+  const [activeNode, setActiveNode] = useState<string>("memory");
 
-          <div className="relative grid lg:grid-cols-[1.2fr,1fr] gap-10">
+  const nodes = [
+    {
+      id: "user",
+      label: "User",
+      x: 50,
+      y: 110,
+      title: "User Interaction Gate",
+      desc: "Voice triggers, smart routine prompts, and environment sensors capture daily needs with zero learning curve.",
+    },
+    {
+      id: "memory",
+      label: "Memory Layer",
+      x: 150,
+      y: 50,
+      title: "Persistent Context Memory",
+      desc: "Secure, encrypted local graph database preserving preferences, relationships, schedules, and long-term user routines.",
+    },
+    {
+      id: "agents",
+      label: "Agent Network",
+      x: 250,
+      y: 110,
+      title: "Multi-Agent Orchestration",
+      desc: "Distributed reasoning mesh where specialized sub-agents (scheduling, communications, emergency alert) coordinate tasks.",
+    },
+    {
+      id: "actions",
+      label: "Actions Deck",
+      x: 350,
+      y: 50,
+      title: "Proactive Task Execution",
+      desc: "Autonomously schedules medical visits, dispatches home automation cues, drafts notifications, and alerts caregivers.",
+    },
+    {
+      id: "hardware",
+      label: "Edge Hardware Hub",
+      x: 450,
+      y: 110,
+      title: "Privacy-First Edge Hub",
+      desc: "Offline edge-computing hardware (Project JAX) running local speech and model loops, keeping data fully private in-home.",
+    },
+  ];
+
+  const activeInfo = nodes.find((n) => n.id === activeNode) || nodes[1];
+
+  return (
+    <section id="startup" className="relative py-32 px-6 overflow-hidden">
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)] pointer-events-none" />
+      <div className="absolute top-10 right-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl -z-10" />
+      <div className="absolute bottom-10 left-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl -z-10" />
+
+      <div className="mx-auto max-w-7xl">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-surface to-background p-8 md:p-14 shadow-elegant">
+          
+          <div className="relative grid lg:grid-cols-[1.2fr,1fr] gap-12 lg:gap-16 items-start">
+            
+            {/* Left Content Side */}
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-accent">
-                <Sparkles size={12} /> {s.status}
+                <Sparkles size={12} className="animate-pulse-glow" /> FLAGSHIP VENTURE • MVP IN DEVELOPMENT
               </div>
-              <h2 className="mt-5 text-5xl md:text-6xl font-semibold tracking-tight">
-                Building <span className="text-gradient">{s.name}</span>
+              <h2 className="mt-5 text-5xl md:text-6xl font-semibold tracking-tight text-gradient">
+                Building {s.name}
               </h2>
               <div className="mt-2 text-sm text-muted-foreground font-mono uppercase tracking-widest">
                 {s.role}
               </div>
 
-              <p className="mt-6 text-xl text-foreground/90 leading-relaxed">{s.mission}</p>
-              <p className="mt-4 text-muted-foreground leading-relaxed">{s.problem}</p>
+              <p className="mt-6 text-xl text-foreground/90 leading-relaxed font-light">
+                {s.mission}
+              </p>
+              
+              <div className="mt-8 text-sm text-muted-foreground/80 leading-relaxed max-w-xl">
+                Eaura is building a differentiated AI platform that combines persistent memory, proactive task execution, and privacy-first edge computing to create the next generation of personal AI assistants (NOVA).
+              </div>
 
-              <div className="mt-8">
-                <div className="text-xs font-mono uppercase tracking-widest text-accent mb-3">
-                  Milestones
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {s.milestones.map((m) => (
-                    <span
-                      key={m}
-                      className="rounded-full border border-border bg-background/60 px-3 py-1.5 text-xs text-foreground/90"
-                    >
-                      {m}
-                    </span>
+              {/* Differentiator Pillars */}
+              <div className="mt-10 space-y-4">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-accent">Key Architectural Pillars</h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {s.pillars.map((p) => (
+                    <div key={p.title} className="group/pillar p-5 rounded-2xl border border-border bg-background/40 hover:border-primary/30 transition-colors duration-300">
+                      <div className="text-sm font-semibold text-foreground/90 group-hover/pillar:text-accent transition-colors duration-300">{p.title}</div>
+                      <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+                        {p.body}
+                      </p>
+                    </div>
                   ))}
                 </div>
               </div>
+
+              {/* Current Focus glowing card */}
+              <div className="relative mt-8 overflow-hidden rounded-2xl border border-primary/20 bg-primary/5 p-6 backdrop-blur">
+                <h4 className="text-xs font-mono uppercase tracking-widest text-accent flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" /> CURRENT VENTURE FOCUS
+                </h4>
+                <p className="mt-3 text-xs text-muted-foreground/90 leading-relaxed font-light">
+                  We are actively building ambient edge hardware prototypes, refining long-term memory graph engines, and preparing for alpha beta trials.
+                </p>
+              </div>
+
+              {/* Multi-Audience CTA Grid */}
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-glow px-6 py-3.5 text-xs font-semibold tracking-wider uppercase text-primary-foreground glow-ring transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                >
+                  Join Beta Test
+                </a>
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 backdrop-blur px-6 py-3.5 text-xs font-semibold tracking-wider uppercase text-foreground hover:bg-surface hover:border-primary/40 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                >
+                  Partner / Invest
+                </a>
+              </div>
             </div>
 
-            <div className="grid gap-4 content-start">
-              {s.pillars.map((p) => (
-                <div
-                  key={p.title}
-                  className="rounded-2xl border border-border bg-background/60 backdrop-blur p-5"
-                >
-                  <div className="text-sm font-semibold text-accent">{p.title}</div>
-                  <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{p.body}</p>
+            {/* Right Interactive SVG Diagram Column */}
+            <div className="lg:sticky lg:top-28 flex flex-col gap-6">
+              <h3 className="text-xs font-mono uppercase tracking-widest text-accent/80 text-center lg:text-left">
+                Interactive Agent Architecture
+              </h3>
+              
+              <div className="relative aspect-[5/3] w-full border border-border bg-[#0a0f1e]/60 backdrop-blur rounded-3xl p-6 overflow-hidden flex flex-col justify-between shadow-elegant">
+                {/* SVG Visualizer */}
+                <div className="flex-1 flex items-center justify-center min-h-[140px]">
+                  <svg viewBox="0 0 500 160" className="w-full h-auto">
+                    <defs>
+                      <linearGradient id="g-flow" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.3" />
+                        <stop offset="50%" stopColor="var(--accent)" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.3" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Bezier Flow Lines */}
+                    {/* Node 1 to 2 */}
+                    <path d="M 50 110 C 100 110, 100 50, 150 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                    <motion.path
+                      d="M 50 110 C 100 110, 100 50, 150 50"
+                      fill="none"
+                      stroke="url(#g-flow)"
+                      strokeWidth="2"
+                      strokeDasharray="4 8"
+                      animate={{ strokeDashoffset: [0, -24] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                    />
+
+                    {/* Node 2 to 3 */}
+                    <path d="M 150 50 C 200 50, 200 110, 250 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                    <motion.path
+                      d="M 150 50 C 200 50, 200 110, 250 110"
+                      fill="none"
+                      stroke="url(#g-flow)"
+                      strokeWidth="2"
+                      strokeDasharray="4 8"
+                      animate={{ strokeDashoffset: [0, -24] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                    />
+
+                    {/* Node 3 to 4 */}
+                    <path d="M 250 110 C 300 110, 300 50, 350 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                    <motion.path
+                      d="M 250 110 C 300 110, 300 50, 350 50"
+                      fill="none"
+                      stroke="url(#g-flow)"
+                      strokeWidth="2"
+                      strokeDasharray="4 8"
+                      animate={{ strokeDashoffset: [0, -24] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                    />
+
+                    {/* Node 4 to 5 */}
+                    <path d="M 350 50 C 400 50, 400 110, 450 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                    <motion.path
+                      d="M 350 50 C 400 50, 400 110, 450 110"
+                      fill="none"
+                      stroke="url(#g-flow)"
+                      strokeWidth="2"
+                      strokeDasharray="4 8"
+                      animate={{ strokeDashoffset: [0, -24] }}
+                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                    />
+
+                    {/* Nodes */}
+                    {nodes.map((node) => {
+                      const isSelected = activeNode === node.id;
+                      return (
+                        <g
+                          key={node.id}
+                          className="cursor-pointer group/node"
+                          onClick={() => setActiveNode(node.id)}
+                          onMouseEnter={() => setActiveNode(node.id)}
+                        >
+                          {/* Outer pulsing shadow ring */}
+                          <motion.circle
+                            cx={node.x}
+                            cy={node.y}
+                            r={isSelected ? 14 : 9}
+                            fill="none"
+                            stroke={isSelected ? "var(--accent)" : "var(--primary)"}
+                            strokeWidth={isSelected ? 1.5 : 1}
+                            opacity={isSelected ? 0.7 : 0.25}
+                            animate={isSelected ? { scale: [1, 1.25, 1] } : {}}
+                            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                          />
+                          {/* Solid core circle */}
+                          <circle
+                            cx={node.x}
+                            cy={node.y}
+                            r={isSelected ? 7 : 5}
+                            fill={isSelected ? "var(--accent)" : "oklch(0.24 0.025 260)"}
+                            stroke={isSelected ? "var(--foreground)" : "var(--primary)"}
+                            strokeWidth={1.5}
+                            className="transition-all duration-300"
+                          />
+                          {/* Label text */}
+                          <text
+                            x={node.x}
+                            y={node.y + 22}
+                            textAnchor="middle"
+                            className={`font-mono text-[9px] uppercase tracking-wider select-none pointer-events-none transition-all duration-300 ${
+                              isSelected ? "fill-accent font-semibold" : "fill-muted-foreground group-hover/node:fill-foreground"
+                            }`}
+                          >
+                            {node.label}
+                          </text>
+                        </g>
+                      );
+                    })}
+                  </svg>
                 </div>
-              ))}
+
+                {/* Details card explaining selected node */}
+                <div className="rounded-2xl border border-border bg-[#0a0f1e]/30 p-5 min-h-[100px] flex flex-col justify-center">
+                  <div className="text-xs font-mono uppercase tracking-widest text-accent">
+                    {activeInfo.title}
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed font-light">
+                    {activeInfo.desc}
+                  </p>
+                </div>
+              </div>
+              
             </div>
+            
           </div>
+          
         </div>
       </div>
     </section>

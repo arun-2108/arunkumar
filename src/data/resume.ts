@@ -283,6 +283,7 @@ export const resume = {
 
 export const navItems = [
   { id: "home", label: "Home" },
+  { id: "startup", label: "Venture" },
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
