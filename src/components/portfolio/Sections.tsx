@@ -23,6 +23,13 @@ import {
 } from "lucide-react";
 import { resume } from "@/data/resume";
 import { Wireframe } from "./Wireframe";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 /* ---------- shared bits ---------- */
 
@@ -38,12 +45,21 @@ function SectionHeader({ kicker, title, sub }: { kicker: string; title: string; 
   );
 }
 
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
     <motion.div
       ref={ref}
+      className={className}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -301,75 +317,92 @@ export function Experience() {
 
 export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string) => void }) {
   return (
-    <section id="projects" className="relative py-32 px-6">
+    <section id="projects" className="relative py-32 px-6 overflow-hidden">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader
-          kicker="Featured Work"
-          title="Projects Engineered to Ship"
-          sub="Hardware × software × research. Each project is a real-world system, not a coursework deliverable."
-        />
+        <Carousel opts={{ align: "start" }} className="w-full relative">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 font-mono text-xs tracking-widest text-accent uppercase mb-4">
+                <span className="h-px w-8 bg-accent" /> Featured Work
+              </div>
+              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">
+                Projects Engineered to Ship
+              </h2>
+              <p className="mt-4 text-muted-foreground text-lg">
+                Hardware × software × research. Each project is a real-world system, not a
+                coursework deliverable.
+              </p>
+            </div>
+            <div className="flex gap-2 shrink-0 mb-2">
+              <CarouselPrevious className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-10 w-10 border-border bg-surface hover:bg-surface-2 text-foreground cursor-pointer flex items-center justify-center rounded-full" />
+              <CarouselNext className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-10 w-10 border-border bg-surface hover:bg-surface-2 text-foreground cursor-pointer flex items-center justify-center rounded-full" />
+            </div>
+          </div>
 
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-          {resume.projects.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.05}>
-              <article className="group relative h-full flex flex-col rounded-3xl border border-border bg-surface/40 backdrop-blur p-5 md:p-6 hover:border-primary/40 transition overflow-hidden">
-                <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition pointer-events-none [background:linear-gradient(135deg,color-mix(in_oklab,var(--primary)_30%,transparent),transparent_60%)]" />
+          <CarouselContent className="-ml-6">
+            {resume.projects.map((p, i) => (
+              <CarouselItem key={p.title} className="pl-6 md:basis-1/2 flex">
+                <Reveal delay={i * 0.05} className="h-full w-full flex">
+                  <article className="group relative h-full flex flex-col rounded-3xl border border-border bg-surface/40 backdrop-blur p-5 md:p-6 hover:border-primary/40 transition overflow-hidden w-full">
+                    <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition pointer-events-none [background:linear-gradient(135deg,color-mix(in_oklab,var(--primary)_30%,transparent),transparent_60%)]" />
 
-                <ProjectVisual images={p.images} title={p.title} />
+                    <ProjectVisual images={p.images} title={p.title} />
 
-                <div className="relative mt-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")} · {p.client} · {p.duration}
-                    </div>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight">{p.title}</h3>
-                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                      {p.summary}
-                    </p>
+                    <div className="relative mt-5 flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                          {String(i + 1).padStart(2, "0")} · {p.client} · {p.duration}
+                        </div>
+                        <h3 className="mt-2 text-2xl font-semibold tracking-tight">{p.title}</h3>
+                        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                          {p.summary}
+                        </p>
 
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {p.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-border bg-background/60 px-2 py-0.5 text-[10px] font-mono text-muted-foreground"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                        <div className="mt-4 flex flex-wrap gap-1.5">
+                          {p.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="rounded-full border border-border bg-background/60 px-2 py-0.5 text-[10px] font-mono text-muted-foreground"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
 
-                    <div className="mt-4">
-                      <div className="text-[10px] font-mono uppercase tracking-widest text-accent mb-1.5">
-                        Outcomes
+                        <div className="mt-4">
+                          <div className="text-[10px] font-mono uppercase tracking-widest text-accent mb-1.5">
+                            Outcomes
+                          </div>
+                          <ul className="space-y-1 text-xs text-foreground/90">
+                            {p.outcomes.map((o, j) => (
+                              <li key={j} className="flex gap-2">
+                                <ArrowRight size={12} className="mt-0.5 text-accent shrink-0" />
+                                {o}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
-                      <ul className="space-y-1 text-xs text-foreground/90">
-                        {p.outcomes.map((o, j) => (
-                          <li key={j} className="flex gap-2">
-                            <ArrowRight size={12} className="mt-0.5 text-accent shrink-0" />
-                            {o}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
 
-                  <div className="mt-6 pt-4 border-t border-border/40">
-                    <button
-                      onClick={() => onViewCaseStudy?.(p.title)}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent transition group/btn cursor-pointer"
-                    >
-                      View Case Study
-                      <ArrowUpRight
-                        size={16}
-                        className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                      />
-                    </button>
-                  </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+                      <div className="mt-6 pt-4 border-t border-border/40">
+                        <button
+                          onClick={() => onViewCaseStudy?.(p.title)}
+                          className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent transition group/btn cursor-pointer"
+                        >
+                          View Case Study
+                          <ArrowUpRight
+                            size={16}
+                            className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );
