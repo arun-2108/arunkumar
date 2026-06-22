@@ -56,16 +56,9 @@ Submitted at: ${new Date().toString()}
     `;
 
     if (!resendApiKey) {
-      const host = req.headers.host || "";
-      const isLocalHost =
-        host.includes("localhost") || host.includes("127.0.0.1") || host.includes("[::1]");
-      const isLocalDev =
-        process.env.NODE_ENV === "development" ||
-        !process.env.VERCEL ||
-        process.env.NOW_REGION === "dev" ||
-        isLocalHost;
+      const isRealVercelCloud = process.env.VERCEL === "1" && process.env.NOW_REGION !== "dev";
 
-      if (isLocalDev) {
+      if (!isRealVercelCloud) {
         console.warn("--- DEVELOPMENT MOCK EMAIL DISPATCH ---");
         console.warn("To:", recipientEmail);
         console.warn("Subject:", body.subject);
@@ -80,7 +73,8 @@ Submitted at: ${new Date().toString()}
 
       console.error("RESEND_API_KEY environment variable is not defined.");
       return res.status(500).json({
-        error: "Configuration Error: RESEND_API_KEY is not defined on the host environment.",
+        error:
+          "Configuration Error: RESEND_API_KEY environment variable is not defined in your Vercel Dashboard project settings.",
       });
     }
 
