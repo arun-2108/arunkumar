@@ -374,21 +374,7 @@ export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string
             </div>
 
             {/* Premium Control Deck Console */}
-            <div className="flex items-center gap-3 bg-surface/80 backdrop-blur-md border border-border px-4 py-2.5 rounded-full shadow-elegant transition-all duration-300 hover:border-primary/40 shrink-0 mb-2 select-none">
-              {/* Autoplay Active Pulse Indicator */}
-              <div className="flex items-center gap-2 pr-3 border-r border-border/40">
-                <span
-                  className={`h-2 w-2 rounded-full transition-all duration-500 ${
-                    isInteracted
-                      ? "bg-muted-foreground/50"
-                      : "bg-accent animate-pulse-glow shadow-[0_0_8px_color-mix(in_oklab,var(--accent)_80%,transparent)]"
-                  }`}
-                />
-                <span className="text-[9px] font-mono text-muted-foreground tracking-widest uppercase">
-                  {isInteracted ? "Manual" : "Auto"}
-                </span>
-              </div>
-
+            <div className="flex items-center gap-3 bg-surface/80 backdrop-blur-md border border-border px-4 py-2 rounded-full shadow-elegant transition-all duration-300 hover:border-primary/40 shrink-0 mb-2 select-none">
               {/* Prev Button */}
               <button
                 onClick={() => {
