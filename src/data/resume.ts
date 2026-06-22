@@ -5,11 +5,15 @@ export const resume = {
   email: "arunpvtz2108@gmail.com",
   phone: "+91 86396 57245",
   linkedin: "https://linkedin.com/in/arun-kumar-7755492a5",
-  resumeUrl: "/Arunkumar_S_Resume.pdf",
+  resumeUrl: "/Arunkumar_Resume.pdf",
 
   hero: {
-    title: ["Engineering Products.", "Building Systems.", "Creating Impact."],
-    sub: "Mechanical engineering student, startup founder, and researcher focused on smart manufacturing, EV technologies, automation systems, and product innovation.",
+    title: [
+      "Building intelligent products",
+      "at the intersection of",
+      "Mechanical Engineering, AI, and Automation.",
+    ],
+    sub: "Founder of EAURA • Smart Manufacturing Engineer at IIITDM Kancheepuram • Designing next-generation systems ranging from agricultural automation and battery technologies to AI-powered industrial solutions.",
   },
 
   about: {

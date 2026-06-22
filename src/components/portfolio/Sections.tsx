@@ -147,38 +147,59 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <p className="mt-6 max-w-xl text-lg text-muted-foreground">{resume.hero.sub}</p>
+            <p className="mt-6 max-w-2xl text-lg text-muted-foreground/90 leading-relaxed font-light">{resume.hero.sub}</p>
           </Reveal>
 
           <Reveal delay={0.15}>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="#projects"
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-glow px-6 py-3 text-sm font-medium text-primary-foreground glow-ring transition-transform hover:scale-[1.02]"
-              >
-                View Projects
-                <ArrowRight
-                  size={16}
-                  className="transition-transform group-hover:translate-x-0.5"
-                />
-              </a>
-              <a
                 href={resume.resumeUrl}
                 download
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium text-foreground hover:bg-surface transition"
+                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-glow px-6 py-3 text-sm font-medium text-primary-foreground glow-ring transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
-                <Download size={16} /> Download Resume
+                <Download size={16} className="transition-transform group-hover:translate-y-0.5 duration-200" />
+                Download Resume
+              </a>
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 backdrop-blur px-6 py-3 text-sm font-medium text-foreground hover:bg-surface hover:border-primary/40 transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              >
+                <Mail size={16} className="text-muted-foreground group-hover:text-accent transition-colors duration-200" />
+                Get in Touch
               </a>
             </div>
           </Reveal>
 
-          <Reveal delay={0.25}>
-            <div className="mt-12 flex items-center gap-6 text-xs font-mono text-muted-foreground tracking-widest">
-              <div className="flex items-center gap-2">
-                <MapPin size={12} /> {resume.location.toUpperCase()}
+          {/* Credibility Strip */}
+          <Reveal delay={0.2}>
+            <div className="mt-12 pt-6 border-t border-border/40 flex flex-wrap gap-x-8 gap-y-4 text-xs font-mono text-muted-foreground tracking-wider">
+              <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
+                <Rocket size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <span>Founder, EAURA Pvt Ltd</span>
               </div>
-              <div className="hidden sm:flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent" /> AVAILABLE FOR COLLAB
+              <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
+                <FlaskConical size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <span>ASME Research Author</span>
+              </div>
+              <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
+                <Trophy size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <span>SIH Finalist</span>
+              </div>
+              <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
+                <PenTool size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <span>Product Designer & Engineer</span>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Location & Availability Status */}
+          <Reveal delay={0.25}>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] font-mono text-muted-foreground/75 tracking-widest uppercase">
+              <div className="flex items-center gap-2">
+                <MapPin size={12} className="text-muted-foreground/60" /> {resume.location.toUpperCase()}
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow" /> AVAILABLE FOR COLLAB
               </div>
             </div>
           </Reveal>
