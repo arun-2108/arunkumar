@@ -271,7 +271,7 @@ export function About() {
             <span className="h-px w-8 bg-accent" /> About Me
           </div>
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">
-            Engineer. Builder. Problem Solver.
+            Engineer. Entrepreneur. Innovator.
           </h2>
         </Reveal>
 
