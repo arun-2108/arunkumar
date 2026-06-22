@@ -329,15 +329,11 @@ export function About() {
             <ul className="mt-4 space-y-2.5 text-xs text-muted-foreground/90 leading-relaxed font-light">
               <li className="flex gap-2.5 items-start">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0 animate-pulse-glow" />
-                <span>Ambient voice-first hardware and AI companion for <strong className="font-semibold text-foreground/90">EAURA</strong> senior citizen support.</span>
+                <span>MVP development of NOVA (privacy-first AI assistant) and envx (secure env var sync) under the <strong className="font-semibold text-foreground/90">EAURA</strong> ecosystem.</span>
               </li>
               <li className="flex gap-2.5 items-start">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
                 <span>High-capacity battery packaging and composite enclosures at <strong className="font-semibold text-foreground/90">SRJ Energy (IITM Research Park)</strong>.</span>
-              </li>
-              <li className="flex gap-2.5 items-start">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                <span>Suspension & dynamics design for a compact electric agricultural transport vehicle.</span>
               </li>
             </ul>
           </div>
