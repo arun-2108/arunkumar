@@ -86,80 +86,144 @@ Submitted at: ${new Date().toString()}
       <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-          <title>New Contact Form Submission</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>New Portfolio Message Received</title>
         </head>
-        <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f8fafc; padding: 40px 20px;">
+        <body style="margin: 0; padding: 0; background-color: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #0b0f19; padding: 40px 10px;">
             <tr>
               <td align="center">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 580px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-                  <!-- Header -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #111827; border: 1px solid #1f2937; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);">
+                  <!-- Banner Header -->
                   <tr>
-                    <td style="border-bottom: 2px solid #3b82f6; padding-bottom: 16px;">
-                      <h2 style="margin: 0; color: #1e3a8a; font-size: 20px; font-weight: 700;">New Portfolio Message Received</h2>
+                    <td style="background-color: #1e1b4b; padding: 28px 32px; border-bottom: 2px solid #6366f1;">
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td>
+                            <span style="font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: bold; color: #818cf8; text-transform: uppercase; letter-spacing: 0.15em; display: block; margin-bottom: 4px;">Inquiry Notification</span>
+                            <h2 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 800; tracking-tight: -0.025em;">New Portfolio Message Received</h2>
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr>
-                  
-                  <tr><td height="24"></td></tr>
 
-                  <!-- Name Field -->
+                  <!-- Content Area -->
                   <tr>
-                    <td>
-                      <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Name</div>
-                      <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.name}</div>
-                    </td>
-                  </tr>
-                  
-                  <tr><td height="20"></td></tr>
+                    <td style="padding: 32px;">
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <!-- Intro Text -->
+                        <tr>
+                          <td style="color: #9ca3af; font-size: 14px; padding-bottom: 24px; line-height: 1.5;">
+                            You received a new inquiry from your portfolio website contact form. The submission details are listed below:
+                          </td>
+                        </tr>
 
-                  <!-- Email Field -->
-                  <tr>
-                    <td>
-                      <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Email Address</div>
-                      <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;"><a href="mailto:${body.email}" style="color: #3b82f6; text-decoration: none; font-weight: 500;">${body.email}</a></div>
-                    </td>
-                  </tr>
-                  
-                  ${
-                    body.company
-                      ? `
-                  <tr><td height="20"></td></tr>
-                  <tr>
-                    <td>
-                      <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Company / Organization</div>
-                      <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.company}</div>
-                    </td>
-                  </tr>
-                  `
-                      : ""
-                  }
-                  
-                  <tr><td height="20"></td></tr>
+                        <!-- Name Field -->
+                        <tr>
+                          <td style="padding-bottom: 20px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td style="font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: bold; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 6px;">
+                                  Name
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="background-color: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #f3f4f6; line-height: 1.5;">
+                                  ${body.name}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
 
-                  <!-- Subject Field -->
-                  <tr>
-                    <td>
-                      <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Subject</div>
-                      <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.subject}</div>
-                    </td>
-                  </tr>
-                  
-                  <tr><td height="20"></td></tr>
+                        <!-- Email Field -->
+                        <tr>
+                          <td style="padding-bottom: 20px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td style="font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: bold; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 6px;">
+                                  Email Address
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="background-color: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #f3f4f6; line-height: 1.5;">
+                                  <a href="mailto:${body.email}" style="color: #60a5fa; text-decoration: none; font-weight: 600;">${body.email}</a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
 
-                  <!-- Message Field -->
-                  <tr>
-                    <td>
-                      <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; color: #64748b; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px;">Message</div>
-                      <div style="background-color: #f8fafc; padding: 12px 16px; border: 1px solid #f1f5f9; border-radius: 8px; font-size: 14px; color: #334155; white-space: pre-wrap;">${body.message}</div>
-                    </td>
-                  </tr>
-                  
-                  <tr><td height="32"></td></tr>
+                        <!-- Company Field -->
+                        ${
+                          body.company
+                            ? `
+                        <tr>
+                          <td style="padding-bottom: 20px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td style="font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: bold; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 6px;">
+                                  Company / Organization
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="background-color: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #f3f4f6; line-height: 1.5;">
+                                  ${body.company}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        `
+                            : ""
+                        }
 
-                  <!-- Footer -->
-                  <tr>
-                    <td style="border-top: 1px solid #f1f5f9; padding-top: 20px; text-align: center; font-size: 11px; color: #94a3b8; font-family: 'Courier New', Courier, monospace;">
-                      Submitted on ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })} (IST) from Portfolio.
+                        <!-- Subject Field -->
+                        <tr>
+                          <td style="padding-bottom: 20px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td style="font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: bold; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 6px;">
+                                  Subject
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="background-color: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #f3f4f6; line-height: 1.5; font-weight: 600;">
+                                  ${body.subject}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <!-- Message Field -->
+                        <tr>
+                          <td style="padding-bottom: 28px;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td style="font-family: 'Courier New', Courier, monospace; font-size: 11px; font-weight: bold; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 6px;">
+                                  Message
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="background-color: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 16px; font-size: 14px; color: #f3f4f6; line-height: 1.6; white-space: pre-wrap;">
+                                  ${body.message}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <!-- Footer / Timestamp -->
+                        <tr>
+                          <td style="border-top: 1px solid #1f2937; padding-top: 20px; text-align: center;">
+                            <span style="font-family: 'Courier New', Courier, monospace; font-size: 11px; color: #4b5563;">
+                              Submitted on ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })} (IST) from Portfolio.
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr>
                 </table>
