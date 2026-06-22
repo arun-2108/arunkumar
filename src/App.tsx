@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { Nav } from "@/components/portfolio/Nav";
 import { BananaCaseStudy } from "@/components/portfolio/BananaCaseStudy";
+import { AuthenDriveCaseStudy } from "@/components/portfolio/AuthenDriveCaseStudy";
 import {
   Hero,
   About,
@@ -30,6 +31,8 @@ export default function App() {
   const handleViewCaseStudy = (title: string) => {
     if (title === "Mobile Banana Processing Unit") {
       setActiveCaseStudy("Mobile Banana Processing Unit");
+    } else if (title === "Driver Authentication & Monitoring System") {
+      setActiveCaseStudy("Driver Authentication & Monitoring System");
     } else {
       toast.info(`Case study for "${title}" is in development!`, {
         description: "The complete design and documentation will be published soon.",
@@ -50,6 +53,8 @@ export default function App() {
       <Toaster position="bottom-right" />
       {activeCaseStudy === "Mobile Banana Processing Unit" ? (
         <BananaCaseStudy onClose={handleCloseCaseStudy} />
+      ) : activeCaseStudy === "Driver Authentication & Monitoring System" ? (
+        <AuthenDriveCaseStudy onClose={handleCloseCaseStudy} />
       ) : (
         <>
           <Nav />
