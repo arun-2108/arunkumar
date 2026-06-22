@@ -182,8 +182,8 @@ export function Hero() {
                 <span>ASME Research Author</span>
               </div>
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
-                <Award size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
-                <span>GATE 2026 AIR 710</span>
+                <Cpu size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
+                <span>Battery Systems Researcher</span>
               </div>
               <div className="group/cred flex items-center gap-2 transition-colors hover:text-foreground duration-300 cursor-default">
                 <PenTool size={14} className="text-accent group-hover/cred:text-primary transition-colors duration-300 shrink-0" />
