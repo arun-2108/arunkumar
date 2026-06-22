@@ -147,7 +147,7 @@ export function BananaVehicleCaseStudy({ onClose }: BananaVehicleCaseStudyProps)
                 <Layers size={12} /> Case Study
               </div>
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gradient leading-[1.1]">
-                Compact Banana Plantation UTV
+                Compact Agricultural E-Transportation Vehicle
               </h1>
               <p className="mt-4 text-xl text-muted-foreground font-light leading-relaxed">
                 Virtual Prototyping of a Compact Utility Transport Vehicle for Narrow Slopes
