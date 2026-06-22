@@ -260,125 +260,102 @@ export function About() {
   ];
 
   return (
-    <section id="about" className="relative py-32 px-6 overflow-hidden">
+    <section id="about" className="relative pt-6 pb-32 px-6 overflow-hidden">
       {/* Background ambient glows */}
       <div className="absolute top-1/4 left-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl -z-10" />
       <div className="absolute bottom-1/4 right-0 h-96 w-96 rounded-full bg-accent/5 blur-3xl -z-10" />
 
-      <div className="mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-[1fr,1.3fr] gap-12 lg:gap-16 items-start">
-          {/* Photo Side */}
-          <Reveal className="lg:sticky lg:top-28">
-            <div className="relative aspect-[3/4] w-full max-w-[420px] mx-auto rounded-3xl overflow-hidden border border-border bg-[#0a0f1e]/40 backdrop-blur shadow-elegant group">
-              <div className="absolute -inset-4 rounded-[40px] bg-gradient-to-tr from-primary to-accent opacity-25 blur-2xl -z-10" />
-              <img
-                src="/about.jpg"
-                alt="Arunkumar S - Professional Engineering Work"
-                className="w-full h-full object-cover object-center filter grayscale contrast-[1.05] hover:grayscale-0 hover:contrast-100 transition-all duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-              
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="text-xs font-mono uppercase tracking-widest text-accent">IIITDM Chennai</div>
-                <div className="text-lg font-semibold text-gradient mt-1">Smart Manufacturing Lab</div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Content Side */}
-          <div>
-            <Reveal>
-              <div className="flex items-center gap-2 font-mono text-xs tracking-widest text-accent uppercase mb-4">
-                <span className="h-px w-8 bg-accent" /> About Me
-              </div>
-              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">
-                Engineer. Builder. Problem Solver.
-              </h2>
-            </Reveal>
-
-            {/* Narrative Story */}
-            <Reveal delay={0.1} className="mt-8 space-y-5 text-base text-muted-foreground/90 leading-relaxed font-light">
-              <p>
-                I've always been fascinated by how things work—not just on a screen, but in the physical world. Growing up, I found myself drawn to the tangible, complex beauty of machinery and systems. That curiosity naturally led me to pursue a B.Tech in Smart Manufacturing at IIITDM Kancheepuram, where I began bridging the gap between classical mechanical design and modern digital automation. To me, engineering isn't just about drafting CAD models; it's the art of bringing static ideas into dynamic, functional existence.
-              </p>
-              <p>
-                What truly drives me is the intersection of mechanical engineering, AI, and entrepreneurship. I believe that next-generation industrial systems shouldn't just be robust; they should be intelligent. This philosophy led me to found Eaura, a government-approved startup where we are creating a voice-first AI companion paired with dedicated, hardware-ambient components to help senior citizens live independently. Navigating the challenge of designing hardware that integrates seamlessly with complex software has refined my product development mindset.
-              </p>
-              <p>
-                Alongside my startup, my research has allowed me to dive deep into materials and automation, developing models to characterize auxetic honeycomb structures for ASME IMECE-INDIA and designing AI-driven separator units for Neyveli Lignite Corporation (NLC). Whether optimizing suspension dynamics for electric agricultural transport or building machine learning algorithms for industrial computer vision, I approach every challenge with the goal of creating validated, deployable prototypes that solve real-world problems.
-              </p>
-              <p>
-                Looking ahead, I am excited about a future where hardware and intelligent automation act as force multipliers for human potential. I want to build systems that improve lives—whether that means automating agricultural logistics, designing safer EV battery systems, or crafting inclusive consumer products. I'm always looking for collaborative projects, research partnerships, and forward-thinking teams that are eager to push the boundaries of what physical machines and smart systems can achieve together.
-              </p>
-            </Reveal>
-
-            {/* Quick Facts Grid */}
-            <Reveal delay={0.15}>
-              <h3 className="mt-10 text-xs font-mono uppercase tracking-widest text-accent/80">Quick Facts</h3>
-              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {quickFacts.map((fact, i) => {
-                  const Icon = fact.icon;
-                  return (
-                    <div
-                      key={i}
-                      className="group/fact flex items-center gap-3 p-3.5 rounded-xl border border-border bg-surface/30 backdrop-blur-sm hover:border-primary/30 transition-colors duration-300"
-                    >
-                      <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary/10 text-accent group-hover/fact:bg-primary/20 transition-colors duration-300">
-                        <Icon size={14} />
-                      </div>
-                      <div>
-                        <div className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground/60">
-                          {fact.label}
-                        </div>
-                        <div className="text-xs font-semibold text-foreground/90">
-                          {fact.detail}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </Reveal>
-
-            {/* Current Focus Highlight Card */}
-            <Reveal delay={0.2}>
-              <div className="relative mt-8 overflow-hidden rounded-2xl border border-primary/20 bg-[#0a0f1e]/40 p-6 backdrop-blur">
-                <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-primary/5 blur-xl pointer-events-none" />
-                <h4 className="text-xs font-mono uppercase tracking-widest text-accent flex items-center gap-2">
-                  <Sparkles size={14} className="animate-pulse-glow text-accent" /> Currently Working On
-                </h4>
-                <ul className="mt-4 space-y-2.5 text-xs text-muted-foreground/90 leading-relaxed font-light">
-                  <li className="flex gap-2.5 items-start">
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0 animate-pulse-glow" />
-                    <span>Ambient voice-first hardware and AI companion for <strong className="font-semibold text-foreground/90">EAURA</strong> senior citizen support.</span>
-                  </li>
-                  <li className="flex gap-2.5 items-start">
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                    <span>High-capacity battery packaging and composite enclosures at <strong className="font-semibold text-foreground/90">SRJ Energy (IITM Research Park)</strong>.</span>
-                  </li>
-                  <li className="flex gap-2.5 items-start">
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                    <span>Suspension & dynamics design for a compact electric agricultural transport vehicle.</span>
-                  </li>
-                </ul>
-              </div>
-            </Reveal>
-
-            {/* CTA Button */}
-            <Reveal delay={0.25} className="mt-8">
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-glow px-6 py-3.5 text-sm font-medium text-primary-foreground glow-ring transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-              >
-                Let's Build Something Together
-                <ArrowRight
-                  size={16}
-                  className="transition-transform group-hover:translate-x-0.5 duration-200"
-                />
-              </a>
-            </Reveal>
+      <div className="mx-auto max-w-4xl">
+        <Reveal>
+          <div className="flex items-center gap-2 font-mono text-xs tracking-widest text-accent uppercase mb-4">
+            <span className="h-px w-8 bg-accent" /> About Me
           </div>
-        </div>
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">
+            Engineer. Builder. Problem Solver.
+          </h2>
+        </Reveal>
+
+        {/* Narrative Story */}
+        <Reveal delay={0.1} className="mt-8 space-y-5 text-base text-muted-foreground/90 leading-relaxed font-light">
+          <p>
+            I've always been fascinated by how things work—not just on a screen, but in the physical world. Growing up, I found myself drawn to the tangible, complex beauty of machinery and systems. That curiosity naturally led me to pursue a B.Tech in Smart Manufacturing at IIITDM Kancheepuram, where I began bridging the gap between classical mechanical design and modern digital automation. To me, engineering isn't just about drafting CAD models; it's the art of bringing static ideas into dynamic, functional existence.
+          </p>
+          <p>
+            What truly drives me is the intersection of mechanical engineering, AI, and entrepreneurship. I believe that next-generation industrial systems shouldn't just be robust; they should be intelligent. This philosophy led me to found Eaura, a government-approved startup where we are creating a voice-first AI companion paired with dedicated, hardware-ambient components to help senior citizens live independently. Navigating the challenge of designing hardware that integrates seamlessly with complex software has refined my product development mindset.
+          </p>
+          <p>
+            Alongside my startup, my research has allowed me to dive deep into materials and automation, developing models to characterize auxetic honeycomb structures for ASME IMECE-INDIA and designing AI-driven separator units for Neyveli Lignite Corporation (NLC). Whether optimizing suspension dynamics for electric agricultural transport or building machine learning algorithms for industrial computer vision, I approach every challenge with the goal of creating validated, deployable prototypes that solve real-world problems.
+          </p>
+          <p>
+            Looking ahead, I am excited about a future where hardware and intelligent automation act as force multipliers for human potential. I want to build systems that improve lives—whether that means automating agricultural logistics, designing safer EV battery systems, or crafting inclusive consumer products. I'm always looking for collaborative projects, research partnerships, and forward-thinking teams that are eager to push the boundaries of what physical machines and smart systems can achieve together.
+          </p>
+        </Reveal>
+
+        {/* Quick Facts Grid */}
+        <Reveal delay={0.15}>
+          <h3 className="mt-10 text-xs font-mono uppercase tracking-widest text-accent/80">Quick Facts</h3>
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {quickFacts.map((fact, i) => {
+              const Icon = fact.icon;
+              return (
+                <div
+                  key={i}
+                  className="group/fact flex items-center gap-3 p-3.5 rounded-xl border border-border bg-surface/30 backdrop-blur-sm hover:border-primary/30 transition-colors duration-300"
+                >
+                  <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary/10 text-accent group-hover/fact:bg-primary/20 transition-colors duration-300">
+                    <Icon size={14} />
+                  </div>
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground/60">
+                      {fact.label}
+                    </div>
+                    <div className="text-xs font-semibold text-foreground/90">
+                      {fact.detail}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        {/* Current Focus Highlight Card */}
+        <Reveal delay={0.2}>
+          <div className="relative mt-8 overflow-hidden rounded-2xl border border-primary/20 bg-[#0a0f1e]/40 p-6 backdrop-blur">
+            <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-primary/5 blur-xl pointer-events-none" />
+            <h4 className="text-xs font-mono uppercase tracking-widest text-accent flex items-center gap-2">
+              <Sparkles size={14} className="animate-pulse-glow text-accent" /> Currently Working On
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-xs text-muted-foreground/90 leading-relaxed font-light">
+              <li className="flex gap-2.5 items-start">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0 animate-pulse-glow" />
+                <span>Ambient voice-first hardware and AI companion for <strong className="font-semibold text-foreground/90">EAURA</strong> senior citizen support.</span>
+              </li>
+              <li className="flex gap-2.5 items-start">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                <span>High-capacity battery packaging and composite enclosures at <strong className="font-semibold text-foreground/90">SRJ Energy (IITM Research Park)</strong>.</span>
+              </li>
+              <li className="flex gap-2.5 items-start">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                <span>Suspension & dynamics design for a compact electric agricultural transport vehicle.</span>
+              </li>
+            </ul>
+          </div>
+        </Reveal>
+
+        {/* CTA Button */}
+        <Reveal delay={0.25} className="mt-8">
+          <a
+            href="#contact"
+            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-glow px-6 py-3.5 text-sm font-medium text-primary-foreground glow-ring transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+          >
+            Let's Build Something Together
+            <ArrowRight
+              size={16}
+              className="transition-transform group-hover:translate-x-0.5 duration-200"
+            />
+          </a>
+        </Reveal>
       </div>
     </section>
   );
