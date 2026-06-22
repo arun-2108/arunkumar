@@ -1367,11 +1367,69 @@ function LinkedinIcon() {
 }
 
 export function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const mailto = () => {
-    const subject = encodeURIComponent(`Hello from ${form.name || "your site"}`);
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name}\n${form.email}`);
-    window.location.href = `mailto:${resume.email}?subject=${subject}&body=${body}`;
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    company: "",
+    message: "",
+    honeypot: "",
+  });
+
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    if (!form.name.trim()) errors.name = "Name is required";
+    if (!form.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      errors.email = "Invalid email format";
+    }
+    if (!form.subject.trim()) errors.subject = "Subject is required";
+    if (!form.message.trim()) errors.message = "Message is required";
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setStatus("submitting");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setStatus("success");
+        setForm({
+          name: "",
+          email: "",
+          subject: "",
+          company: "",
+          message: "",
+          honeypot: "",
+        });
+        setValidationErrors({});
+      } else {
+        setStatus("error");
+        setErrorMessage(result.error || "Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+      setStatus("error");
+      setErrorMessage("Network error. Please check your connection and try again.");
+    }
   };
 
   return (
@@ -1386,7 +1444,7 @@ export function Contact() {
             <h2 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight">
               Let's build <span className="text-gradient">something meaningful.</span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground max-w-md">
+            <p className="mt-6 text-lg text-muted-foreground max-w-md font-light leading-relaxed">
               Open to research collaborations, founding-team conversations, and engineering projects
               that push real systems forward.
             </p>
@@ -1415,54 +1473,123 @@ export function Contact() {
 
           <Reveal delay={0.1}>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                mailto();
-              }}
+              onSubmit={handleSubmit}
               className="rounded-3xl border border-border bg-surface/40 backdrop-blur p-6 md:p-8"
+              noValidate
             >
               <div className="grid gap-4">
-                <Field
-                  label="Name"
-                  value={form.name}
-                  onChange={(v) => setForm({ ...form, name: v })}
-                  required
-                  maxLength={100}
-                  placeholder="Your name"
-                />
-                <Field
-                  label="Email"
-                  type="email"
-                  value={form.email}
-                  onChange={(v) => setForm({ ...form, email: v })}
-                  required
-                  maxLength={255}
-                  placeholder="you@company.com"
-                />
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <Field
+                    label="Name"
+                    value={form.name}
+                    onChange={(v) => setForm({ ...form, name: v })}
+                    required
+                    disabled={status === "submitting"}
+                    maxLength={100}
+                    placeholder="Your name"
+                    error={validationErrors.name}
+                  />
+                  <Field
+                    label="Email"
+                    type="email"
+                    value={form.email}
+                    onChange={(v) => setForm({ ...form, email: v })}
+                    required
+                    disabled={status === "submitting"}
+                    maxLength={255}
+                    placeholder="you@company.com"
+                    error={validationErrors.email}
+                  />
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <Field
+                    label="Company / Org"
+                    value={form.company}
+                    onChange={(v) => setForm({ ...form, company: v })}
+                    disabled={status === "submitting"}
+                    maxLength={100}
+                    placeholder="Optional"
+                  />
+                  <Field
+                    label="Subject"
+                    value={form.subject}
+                    onChange={(v) => setForm({ ...form, subject: v })}
+                    required
+                    disabled={status === "submitting"}
+                    maxLength={150}
+                    placeholder="What is this about?"
+                    error={validationErrors.subject}
+                  />
+                </div>
+
+                {/* Honeypot Spam Trap (visually hidden) */}
+                <div className="hidden" aria-hidden="true">
+                  <input
+                    type="text"
+                    name="honeypot"
+                    value={form.honeypot}
+                    onChange={(e) => setForm({ ...form, honeypot: e.target.value })}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <Field
                   label="Message"
                   textarea
                   value={form.message}
                   onChange={(v) => setForm({ ...form, message: v })}
                   required
+                  disabled={status === "submitting"}
                   maxLength={1000}
                   placeholder="Tell me what you're building."
+                  error={validationErrors.message}
                 />
               </div>
 
               <button
                 type="submit"
-                className="mt-6 group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary-glow px-6 py-3 text-sm font-medium text-primary-foreground glow-ring transition-transform hover:scale-[1.01]"
+                disabled={status === "submitting"}
+                className="mt-6 group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary-glow px-6 py-3 text-sm font-semibold text-primary-foreground glow-ring transition-all hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                Send Message
-                <ArrowUpRight
-                  size={16}
-                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
+                {status === "submitting" ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending Message...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <ArrowUpRight
+                      size={16}
+                      className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </>
+                )}
               </button>
-              <p className="mt-3 text-[11px] text-muted-foreground text-center">
-                Opens your email client preloaded with the message.
-              </p>
+
+              {status === "success" && (
+                <div className="mt-4 p-4 rounded-xl border border-accent/30 bg-accent/10 text-accent text-xs font-light leading-relaxed animate-fade-in">
+                  <div className="font-semibold mb-1 flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow" />
+                    Message sent successfully!
+                  </div>
+                  Thank you for reaching out. I'll get back to you as soon as possible.
+                </div>
+              )}
+
+              {status === "error" && (
+                <div className="mt-4 p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-light leading-relaxed animate-fade-in">
+                  <div className="font-semibold mb-1">
+                    Submission failed
+                  </div>
+                  {errorMessage}
+                </div>
+              )}
             </form>
           </Reveal>
         </div>
@@ -1517,6 +1644,8 @@ function Field({
   required,
   maxLength,
   placeholder,
+  error,
+  disabled,
 }: {
   label: string;
   value: string;
@@ -1526,24 +1655,39 @@ function Field({
   required?: boolean;
   maxLength?: number;
   placeholder?: string;
+  error?: string;
+  disabled?: boolean;
 }) {
-  const base =
-    "w-full rounded-xl border border-border bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition";
+  const base = `w-full rounded-xl border bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 transition duration-200 ${
+    error
+      ? "border-red-500/50 focus:ring-red-500/30 focus:border-red-500/80"
+      : "border-border focus:ring-primary/50 focus:border-primary/50"
+  } disabled:opacity-50 disabled:cursor-not-allowed`;
+
   return (
-    <label className="block">
-      <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-        {label}
-      </span>
+    <label className="block w-full">
+      <div className="flex justify-between items-center select-none">
+        <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+          {label} {required && <span className="text-accent">*</span>}
+        </span>
+        {error && (
+          <span className="text-[9px] font-mono text-red-500/90 animate-pulse-glow">
+            {error}
+          </span>
+        )}
+      </div>
       <div className="mt-1.5">
         {textarea ? (
           <textarea
             value={value}
             onChange={(e) => onChange(e.target.value)}
             required={required}
+            disabled={disabled}
             maxLength={maxLength}
-            rows={5}
+            rows={4}
             placeholder={placeholder}
             className={base + " resize-none"}
+            aria-invalid={!!error}
           />
         ) : (
           <input
@@ -1551,9 +1695,11 @@ function Field({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             required={required}
+            disabled={disabled}
             maxLength={maxLength}
             placeholder={placeholder}
             className={base}
+            aria-invalid={!!error}
           />
         )}
       </div>
