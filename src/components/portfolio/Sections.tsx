@@ -328,14 +328,14 @@ export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string
               <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gradient">
                 Projects Engineered to Ship
               </h2>
-              <p className="mt-4 text-muted-foreground text-lg">
+              <p className="mt-4 text-muted-foreground text-lg font-light leading-relaxed">
                 Hardware × software × research. Each project is a real-world system, not a
                 coursework deliverable.
               </p>
             </div>
-            <div className="flex gap-2 shrink-0 mb-2">
-              <CarouselPrevious className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-10 w-10 border-border bg-surface hover:bg-surface-2 text-foreground cursor-pointer flex items-center justify-center rounded-full" />
-              <CarouselNext className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-10 w-10 border-border bg-surface hover:bg-surface-2 text-foreground cursor-pointer flex items-center justify-center rounded-full" />
+            <div className="flex gap-3 shrink-0 mb-2">
+              <CarouselPrevious className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-12 w-12 border border-border bg-surface/60 hover:scale-110 hover:border-accent/60 hover:bg-accent/15 hover:text-accent hover:shadow-[0_0_20px_color-mix(in_oklab,var(--accent)_30%,transparent)] active:scale-95 text-foreground cursor-pointer flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none" />
+              <CarouselNext className="relative left-auto right-auto top-auto bottom-auto translate-y-0 h-12 w-12 border border-border bg-surface/60 hover:scale-110 hover:border-accent/60 hover:bg-accent/15 hover:text-accent hover:shadow-[0_0_20px_color-mix(in_oklab,var(--accent)_30%,transparent)] active:scale-95 text-foreground cursor-pointer flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-30 disabled:pointer-events-none" />
             </div>
           </div>
 
@@ -343,7 +343,7 @@ export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string
             {resume.projects.map((p, i) => (
               <CarouselItem key={p.title} className="pl-6 md:basis-1/2 flex">
                 <Reveal delay={i * 0.05} className="h-full w-full flex">
-                  <article className="group relative h-full flex flex-col rounded-3xl border border-border bg-surface/40 backdrop-blur p-5 md:p-6 hover:border-primary/40 transition overflow-hidden w-full">
+                  <article className="group relative h-full flex flex-col rounded-3xl border border-border bg-surface/40 backdrop-blur p-5 md:p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_30px_60px_-15px_color-mix(in_oklab,var(--primary)_25%,transparent)] hover:border-primary/60 overflow-hidden w-full">
                     <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition pointer-events-none [background:linear-gradient(135deg,color-mix(in_oklab,var(--primary)_30%,transparent),transparent_60%)]" />
 
                     <ProjectVisual images={p.images} title={p.title} />
@@ -353,7 +353,9 @@ export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string
                         <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                           {String(i + 1).padStart(2, "0")} · {p.client} · {p.duration}
                         </div>
-                        <h3 className="mt-2 text-2xl font-semibold tracking-tight">{p.title}</h3>
+                        <h3 className="mt-2 text-2xl font-semibold tracking-tight group-hover:text-accent transition-colors duration-300">
+                          {p.title}
+                        </h3>
                         <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                           {p.summary}
                         </p>
@@ -362,39 +364,42 @@ export function Projects({ onViewCaseStudy }: { onViewCaseStudy?: (title: string
                           {p.tech.map((t) => (
                             <span
                               key={t}
-                              className="rounded-full border border-border bg-background/60 px-2 py-0.5 text-[10px] font-mono text-muted-foreground"
+                              className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[10px] font-mono text-accent/90 hover:border-accent/50 hover:bg-accent/10 transition-colors duration-300"
                             >
                               {t}
                             </span>
                           ))}
                         </div>
 
-                        <div className="mt-4">
-                          <div className="text-[10px] font-mono uppercase tracking-widest text-accent mb-1.5">
+                        <div className="mt-5">
+                          <div className="text-[10px] font-mono uppercase tracking-widest text-accent mb-2">
                             Outcomes
                           </div>
-                          <ul className="space-y-1 text-xs text-foreground/90">
+                          <ul className="space-y-2 text-xs text-foreground/90">
                             {p.outcomes.map((o, j) => (
-                              <li key={j} className="flex gap-2">
-                                <ArrowRight size={12} className="mt-0.5 text-accent shrink-0" />
-                                {o}
+                              <li key={j} className="flex gap-2.5 items-start">
+                                <span className="h-1.5 w-1.5 rounded-full bg-accent mt-1.5 shrink-0 animate-pulse-glow shadow-[0_0_8px_color-mix(in_oklab,var(--accent)_60%,transparent)]" />
+                                <span className="leading-relaxed">{o}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
                       </div>
 
-                      <div className="mt-6 pt-4 border-t border-border/40">
+                      <div className="mt-6 pt-4 border-t border-border/40 flex justify-between items-center">
                         <button
                           onClick={() => onViewCaseStudy?.(p.title)}
-                          className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent transition group/btn cursor-pointer"
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-4 py-2 text-xs font-semibold tracking-wide uppercase text-foreground hover:text-accent hover:border-accent hover:bg-accent/5 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] group/btn cursor-pointer shadow-sm hover:shadow-[0_0_16px_color-mix(in_oklab,var(--accent)_30%,transparent)]"
                         >
                           View Case Study
                           <ArrowUpRight
-                            size={16}
+                            size={14}
                             className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
                           />
                         </button>
+                        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
+                          Full details
+                        </span>
                       </div>
                     </div>
                   </article>
