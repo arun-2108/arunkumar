@@ -56,7 +56,15 @@ Submitted at: ${new Date().toString()}
     `;
 
     if (!resendApiKey) {
-      const isLocalDev = process.env.NODE_ENV === "development" || !process.env.VERCEL;
+      const host = req.headers.host || "";
+      const isLocalHost =
+        host.includes("localhost") || host.includes("127.0.0.1") || host.includes("[::1]");
+      const isLocalDev =
+        process.env.NODE_ENV === "development" ||
+        !process.env.VERCEL ||
+        process.env.NOW_REGION === "dev" ||
+        isLocalHost;
+
       if (isLocalDev) {
         console.warn("--- DEVELOPMENT MOCK EMAIL DISPATCH ---");
         console.warn("To:", recipientEmail);
@@ -71,11 +79,9 @@ Submitted at: ${new Date().toString()}
       }
 
       console.error("RESEND_API_KEY environment variable is not defined.");
-      return res
-        .status(500)
-        .json({
-          error: "Configuration Error: RESEND_API_KEY is not defined on the host environment.",
-        });
+      return res.status(500).json({
+        error: "Configuration Error: RESEND_API_KEY is not defined on the host environment.",
+      });
     }
 
     const resend = new Resend(resendApiKey);
