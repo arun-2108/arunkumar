@@ -13,7 +13,7 @@ export const resume = {
       "at the intersection of",
       "Mechanical Engineering, AI, and Automation.",
     ],
-    sub: "Founder of EAURA • Smart Manufacturing Engineer at IIITDM Kancheepuram • Designing next-generation systems ranging from agricultural automation and battery technologies to AI-powered industrial solutions.",
+    sub: "Founder of EAURA • Smart Manufacturing Engineer at IIITDM Kancheepuram • Entrepreneur, and Passionate about building impactful products, leading teams, solving complex problems and exploring how technology, management, and innovation can create meaningful real-world impact.",
   },
 
   about: {
