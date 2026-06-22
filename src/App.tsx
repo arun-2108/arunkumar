@@ -61,10 +61,10 @@ export default function App() {
           <main>
             <Hero />
             <About />
-            <Startup />
             <Experience />
             <Projects onViewCaseStudy={handleViewCaseStudy} />
             <Research />
+            <Startup />
             <Skills />
             <Leadership />
             <Achievements />
