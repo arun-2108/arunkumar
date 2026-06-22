@@ -60,8 +60,8 @@ export default function App() {
           <Nav />
           <main>
             <Hero />
-            <Startup />
             <About />
+            <Startup />
             <Experience />
             <Projects onViewCaseStudy={handleViewCaseStudy} />
             <Research />

@@ -734,9 +734,11 @@ function StatusBadge({ status }: { status: string }) {
 
 export function Startup() {
   const s = resume.startup;
-  const [activeNode, setActiveNode] = useState<string>("memory");
+  const [activeProduct, setActiveProduct] = useState<"nova" | "envx">("nova");
+  const [activeNovaNode, setActiveNovaNode] = useState<string>("memory");
+  const [activeEnvxNode, setActiveEnvxNode] = useState<string>("cli");
 
-  const nodes = [
+  const novaNodes = [
     {
       id: "user",
       label: "User",
@@ -779,7 +781,55 @@ export function Startup() {
     },
   ];
 
-  const activeInfo = nodes.find((n) => n.id === activeNode) || nodes[1];
+  const envxNodes = [
+    {
+      id: "local",
+      label: "Local Dev",
+      x: 60,
+      y: 100,
+      title: "Local Environment",
+      desc: "Developer machines working with locally configured variables, integrated directly with envx command line interface.",
+    },
+    {
+      id: "cli",
+      label: "envx CLI",
+      x: 170,
+      y: 50,
+      title: "Secure CLI Client",
+      desc: "Local agent encrypting and decrypting secrets on-the-fly before they ever touch the network sync layer.",
+    },
+    {
+      id: "cloud",
+      label: "Zero-Knowledge Store",
+      x: 280,
+      y: 100,
+      title: "Cloud Secrets Vault",
+      desc: "Zero-knowledge database storage where credentials are encrypted with client keys so the hosting server never reads them.",
+    },
+    {
+      id: "workspaces",
+      label: "Team Workspaces",
+      x: 390,
+      y: 50,
+      title: "Team Workspaces",
+      desc: "Automatically pushes synced configurations to staging, production, and other team members' environments in real-time.",
+    },
+  ];
+
+  const lookingFor = [
+    "Beta Testers",
+    "Early Adopters",
+    "Advisors",
+    "Strategic Partners",
+    "AI Engineers",
+    "Embedded Systems Engineers",
+    "Product Designers",
+    "Researchers",
+    "Angel Investors",
+  ];
+
+  const currentNovaInfo = novaNodes.find((n) => n.id === activeNovaNode) || novaNodes[1];
+  const currentEnvxInfo = envxNodes.find((n) => n.id === activeEnvxNode) || envxNodes[1];
 
   return (
     <section id="startup" className="relative py-32 px-6 overflow-hidden">
@@ -791,51 +841,110 @@ export function Startup() {
       <div className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-surface to-background p-8 md:p-14 shadow-elegant">
           
-          <div className="relative grid lg:grid-cols-[1.2fr,1fr] gap-12 lg:gap-16 items-start">
+          <div className="relative grid lg:grid-cols-[1.1fr,1fr] gap-12 lg:gap-16 items-start">
             
             {/* Left Content Side */}
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-accent">
-                <Sparkles size={12} className="animate-pulse-glow" /> FLAGSHIP VENTURE • MVP IN DEVELOPMENT
+                <Sparkles size={12} className="animate-pulse-glow" /> FLAGSHIP VENTURE • MVP DEVELOPMENT & BETA PREPARATION
               </div>
               <h2 className="mt-5 text-5xl md:text-6xl font-semibold tracking-tight text-gradient">
-                Building {s.name}
+                Eaura
               </h2>
               <div className="mt-2 text-sm text-muted-foreground font-mono uppercase tracking-widest">
-                {s.role}
+                Arunkumar S — Founder & CEO
               </div>
 
               <p className="mt-6 text-xl text-foreground/90 leading-relaxed font-light">
-                {s.mission}
+                Eaura is building an ecosystem of AI-powered products that combine intelligent software, privacy-first architecture, and automation to solve meaningful real-world problems.
               </p>
               
-              <div className="mt-8 text-sm text-muted-foreground/80 leading-relaxed max-w-xl">
-                Eaura is building a differentiated AI platform that combines persistent memory, proactive task execution, and privacy-first edge computing to create the next generation of personal AI assistants (NOVA).
+              <div className="mt-6 text-sm text-muted-foreground/85 leading-relaxed max-w-xl font-light">
+                NOVA and envx represent the first steps toward a broader platform spanning personal AI, developer tools, and intelligent systems.
               </div>
 
-              {/* Differentiator Pillars */}
-              <div className="mt-10 space-y-4">
-                <h3 className="text-xs font-mono uppercase tracking-widest text-accent">Key Architectural Pillars</h3>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {s.pillars.map((p) => (
-                    <div key={p.title} className="group/pillar p-5 rounded-2xl border border-border bg-background/40 hover:border-primary/30 transition-colors duration-300">
-                      <div className="text-sm font-semibold text-foreground/90 group-hover/pillar:text-accent transition-colors duration-300">{p.title}</div>
-                      <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">
-                        {p.body}
-                      </p>
-                    </div>
-                  ))}
+              {/* Startup Info / Needs Section */}
+              <div className="mt-8 grid sm:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent">Venture Status</h4>
+                  <div className="mt-2.5 p-4 rounded-xl border border-border bg-[#0a0f1e]/40">
+                    <div className="text-sm font-semibold text-foreground/90">MVP Development</div>
+                    <div className="text-xs text-muted-foreground mt-1 font-light leading-relaxed">Refining on-device persistent memory engines and secure CLI synchronizers.</div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent mb-2.5">Currently Looking For</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {lookingFor.map((item) => (
+                      <span key={item} className="text-[10px] font-mono border border-border bg-[#0a0f1e]/40 px-2.5 py-1 rounded-md text-muted-foreground hover:text-foreground transition duration-300">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Current Focus glowing card */}
-              <div className="relative mt-8 overflow-hidden rounded-2xl border border-primary/20 bg-primary/5 p-6 backdrop-blur">
-                <h4 className="text-xs font-mono uppercase tracking-widest text-accent flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" /> CURRENT VENTURE FOCUS
-                </h4>
-                <p className="mt-3 text-xs text-muted-foreground/90 leading-relaxed font-light">
-                  We are actively building ambient edge hardware prototypes, refining long-term memory graph engines, and preparing for alpha beta trials.
-                </p>
+              {/* Product Tabs Selector */}
+              <div className="mt-12">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-accent mb-4">Eaura Product Portfolio</h3>
+                <div className="flex border-b border-border/40">
+                  <button
+                    onClick={() => setActiveProduct("nova")}
+                    className={`px-6 py-3 text-sm font-semibold transition-all border-b-2 -mb-px cursor-pointer ${
+                      activeProduct === "nova"
+                        ? "border-accent text-accent"
+                        : "border-transparent text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    NOVA (Personal AI)
+                  </button>
+                  <button
+                    onClick={() => setActiveProduct("envx")}
+                    className={`px-6 py-3 text-sm font-semibold transition-all border-b-2 -mb-px cursor-pointer ${
+                      activeProduct === "envx"
+                        ? "border-accent text-accent"
+                        : "border-transparent text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    envx (Developer Sync)
+                  </button>
+                </div>
+
+                <div className="mt-6">
+                  {activeProduct === "nova" ? (
+                    <div>
+                      <div className="text-base font-semibold text-foreground/90">NOVA — Proactive AI Companion</div>
+                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed max-w-xl font-light font-sans">
+                        A proactive, privacy-first AI assistant that combines persistent memory, multi-agent orchestration, and edge computing to help users manage communication, wellness, and daily life.
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="text-base font-semibold text-foreground/90">envx — Secure Env Var Sync</div>
+                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed max-w-xl font-light font-sans">
+                        A developer-focused platform for secure environment variable synchronization and management across teams and projects.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Future Product Expansion */}
+                <div className="mt-8 pt-6 border-t border-border/40">
+                  <h4 className="text-xs font-mono uppercase tracking-widest text-accent mb-3">Future Product Expansion</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "AI Assistants",
+                      "Automation Systems",
+                      "Productivity Tools",
+                      "Robotics",
+                      "Intelligent Hardware"
+                    ].map((fp) => (
+                      <span key={fp} className="text-[10px] font-mono border border-border bg-[#0a0f1e]/40 px-2.5 py-1 rounded-md text-muted-foreground hover:text-foreground transition duration-300">
+                        {fp}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Multi-Audience CTA Grid */}
@@ -844,7 +953,7 @@ export function Startup() {
                   href="#contact"
                   className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-glow px-6 py-3.5 text-xs font-semibold tracking-wider uppercase text-primary-foreground glow-ring transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                 >
-                  Join Beta Test
+                  Join {activeProduct === "nova" ? "NOVA" : "envx"} Beta
                 </a>
                 <a
                   href="#contact"
@@ -856,128 +965,211 @@ export function Startup() {
             </div>
 
             {/* Right Interactive SVG Diagram Column */}
-            <div className="lg:sticky lg:top-28 flex flex-col gap-6">
+            <div className="lg:sticky lg:top-28 flex flex-col gap-6 w-full">
               <h3 className="text-xs font-mono uppercase tracking-widest text-accent/80 text-center lg:text-left">
-                Interactive Agent Architecture
+                {activeProduct === "nova" ? "NOVA Architecture Flow" : "envx Sync Security Flow"}
               </h3>
               
               <div className="relative aspect-[5/3] w-full border border-border bg-[#0a0f1e]/60 backdrop-blur rounded-3xl p-6 overflow-hidden flex flex-col justify-between shadow-elegant">
                 {/* SVG Visualizer */}
                 <div className="flex-1 flex items-center justify-center min-h-[140px]">
-                  <svg viewBox="0 0 500 160" className="w-full h-auto">
-                    <defs>
-                      <linearGradient id="g-flow" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.3" />
-                        <stop offset="50%" stopColor="var(--accent)" stopOpacity="0.8" />
-                        <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.3" />
-                      </linearGradient>
-                    </defs>
+                  {activeProduct === "nova" ? (
+                    <svg viewBox="0 0 500 160" className="w-full h-auto">
+                      <defs>
+                        <linearGradient id="g-flow-nova" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.3" />
+                          <stop offset="50%" stopColor="var(--accent)" stopOpacity="0.8" />
+                          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.3" />
+                        </linearGradient>
+                      </defs>
 
-                    {/* Bezier Flow Lines */}
-                    {/* Node 1 to 2 */}
-                    <path d="M 50 110 C 100 110, 100 50, 150 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
-                    <motion.path
-                      d="M 50 110 C 100 110, 100 50, 150 50"
-                      fill="none"
-                      stroke="url(#g-flow)"
-                      strokeWidth="2"
-                      strokeDasharray="4 8"
-                      animate={{ strokeDashoffset: [0, -24] }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                    />
+                      {/* Connection flows */}
+                      <path d="M 50 110 C 100 110, 100 50, 150 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <motion.path
+                        d="M 50 110 C 100 110, 100 50, 150 50"
+                        fill="none"
+                        stroke="url(#g-flow-nova)"
+                        strokeWidth="2"
+                        strokeDasharray="4 8"
+                        animate={{ strokeDashoffset: [0, -24] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      />
 
-                    {/* Node 2 to 3 */}
-                    <path d="M 150 50 C 200 50, 200 110, 250 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
-                    <motion.path
-                      d="M 150 50 C 200 50, 200 110, 250 110"
-                      fill="none"
-                      stroke="url(#g-flow)"
-                      strokeWidth="2"
-                      strokeDasharray="4 8"
-                      animate={{ strokeDashoffset: [0, -24] }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                    />
+                      <path d="M 150 50 C 200 50, 200 110, 250 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <motion.path
+                        d="M 150 50 C 200 50, 200 110, 250 110"
+                        fill="none"
+                        stroke="url(#g-flow-nova)"
+                        strokeWidth="2"
+                        strokeDasharray="4 8"
+                        animate={{ strokeDashoffset: [0, -24] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      />
 
-                    {/* Node 3 to 4 */}
-                    <path d="M 250 110 C 300 110, 300 50, 350 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
-                    <motion.path
-                      d="M 250 110 C 300 110, 300 50, 350 50"
-                      fill="none"
-                      stroke="url(#g-flow)"
-                      strokeWidth="2"
-                      strokeDasharray="4 8"
-                      animate={{ strokeDashoffset: [0, -24] }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                    />
+                      <path d="M 250 110 C 300 110, 300 50, 350 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <motion.path
+                        d="M 250 110 C 300 110, 300 50, 350 50"
+                        fill="none"
+                        stroke="url(#g-flow-nova)"
+                        strokeWidth="2"
+                        strokeDasharray="4 8"
+                        animate={{ strokeDashoffset: [0, -24] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      />
 
-                    {/* Node 4 to 5 */}
-                    <path d="M 350 50 C 400 50, 400 110, 450 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
-                    <motion.path
-                      d="M 350 50 C 400 50, 400 110, 450 110"
-                      fill="none"
-                      stroke="url(#g-flow)"
-                      strokeWidth="2"
-                      strokeDasharray="4 8"
-                      animate={{ strokeDashoffset: [0, -24] }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                    />
+                      <path d="M 350 50 C 400 50, 400 110, 450 110" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <motion.path
+                        d="M 350 50 C 400 50, 400 110, 450 110"
+                        fill="none"
+                        stroke="url(#g-flow-nova)"
+                        strokeWidth="2"
+                        strokeDasharray="4 8"
+                        animate={{ strokeDashoffset: [0, -24] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      />
 
-                    {/* Nodes */}
-                    {nodes.map((node) => {
-                      const isSelected = activeNode === node.id;
-                      return (
-                        <g
-                          key={node.id}
-                          className="cursor-pointer group/node"
-                          onClick={() => setActiveNode(node.id)}
-                          onMouseEnter={() => setActiveNode(node.id)}
-                        >
-                          {/* Outer pulsing shadow ring */}
-                          <motion.circle
-                            cx={node.x}
-                            cy={node.y}
-                            r={isSelected ? 14 : 9}
-                            fill="none"
-                            stroke={isSelected ? "var(--accent)" : "var(--primary)"}
-                            strokeWidth={isSelected ? 1.5 : 1}
-                            opacity={isSelected ? 0.7 : 0.25}
-                            animate={isSelected ? { scale: [1, 1.25, 1] } : {}}
-                            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                          />
-                          {/* Solid core circle */}
-                          <circle
-                            cx={node.x}
-                            cy={node.y}
-                            r={isSelected ? 7 : 5}
-                            fill={isSelected ? "var(--accent)" : "oklch(0.24 0.025 260)"}
-                            stroke={isSelected ? "var(--foreground)" : "var(--primary)"}
-                            strokeWidth={1.5}
-                            className="transition-all duration-300"
-                          />
-                          {/* Label text */}
-                          <text
-                            x={node.x}
-                            y={node.y + 22}
-                            textAnchor="middle"
-                            className={`font-mono text-[9px] uppercase tracking-wider select-none pointer-events-none transition-all duration-300 ${
-                              isSelected ? "fill-accent font-semibold" : "fill-muted-foreground group-hover/node:fill-foreground"
-                            }`}
+                      {/* Nodes */}
+                      {novaNodes.map((node) => {
+                        const isSelected = activeNovaNode === node.id;
+                        return (
+                          <g
+                            key={node.id}
+                            className="cursor-pointer group/node"
+                            onClick={() => setActiveNovaNode(node.id)}
+                            onMouseEnter={() => setActiveNovaNode(node.id)}
                           >
-                            {node.label}
-                          </text>
-                        </g>
-                      );
-                    })}
-                  </svg>
+                            <motion.circle
+                              cx={node.x}
+                              cy={node.y}
+                              r={isSelected ? 14 : 9}
+                              fill="none"
+                              stroke={isSelected ? "var(--accent)" : "var(--primary)"}
+                              strokeWidth={isSelected ? 1.5 : 1}
+                              opacity={isSelected ? 0.7 : 0.25}
+                              animate={isSelected ? { scale: [1, 1.25, 1] } : {}}
+                              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                            />
+                            <circle
+                              cx={node.x}
+                              cy={node.y}
+                              r={isSelected ? 7 : 5}
+                              fill={isSelected ? "var(--accent)" : "oklch(0.24 0.025 260)"}
+                              stroke={isSelected ? "var(--foreground)" : "var(--primary)"}
+                              strokeWidth={1.5}
+                              className="transition-all duration-300"
+                            />
+                            <text
+                              x={node.x}
+                              y={node.y + 22}
+                              textAnchor="middle"
+                              className={`font-mono text-[9px] uppercase tracking-wider select-none pointer-events-none transition-all duration-300 ${
+                                isSelected ? "fill-accent font-semibold" : "fill-muted-foreground group-hover/node:fill-foreground"
+                              }`}
+                            >
+                              {node.label}
+                            </text>
+                          </g>
+                        );
+                      })}
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 500 160" className="w-full h-auto">
+                      <defs>
+                        <linearGradient id="g-flow-envx" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.3" />
+                          <stop offset="50%" stopColor="var(--accent)" stopOpacity="0.8" />
+                          <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.3" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Connection flows */}
+                      <path d="M 60 100 C 115 100, 115 50, 170 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <motion.path
+                        d="M 60 100 C 115 100, 115 50, 170 50"
+                        fill="none"
+                        stroke="url(#g-flow-envx)"
+                        strokeWidth="2"
+                        strokeDasharray="4 8"
+                        animate={{ strokeDashoffset: [0, -24] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      />
+
+                      <path d="M 170 50 C 225 50, 225 100, 280 100" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <motion.path
+                        d="M 170 50 C 225 50, 225 100, 280 100"
+                        fill="none"
+                        stroke="url(#g-flow-envx)"
+                        strokeWidth="2"
+                        strokeDasharray="4 8"
+                        animate={{ strokeDashoffset: [0, -24] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      />
+
+                      <path d="M 280 100 C 335 100, 335 50, 390 50" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="2" />
+                      <motion.path
+                        d="M 280 100 C 335 100, 335 50, 390 50"
+                        fill="none"
+                        stroke="url(#g-flow-envx)"
+                        strokeWidth="2"
+                        strokeDasharray="4 8"
+                        animate={{ strokeDashoffset: [0, -24] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                      />
+
+                      {/* Nodes */}
+                      {envxNodes.map((node) => {
+                        const isSelected = activeEnvxNode === node.id;
+                        return (
+                          <g
+                            key={node.id}
+                            className="cursor-pointer group/node"
+                            onClick={() => setActiveEnvxNode(node.id)}
+                            onMouseEnter={() => setActiveEnvxNode(node.id)}
+                          >
+                            <motion.circle
+                              cx={node.x}
+                              cy={node.y}
+                              r={isSelected ? 14 : 9}
+                              fill="none"
+                              stroke={isSelected ? "var(--accent)" : "var(--primary)"}
+                              strokeWidth={isSelected ? 1.5 : 1}
+                              opacity={isSelected ? 0.7 : 0.25}
+                              animate={isSelected ? { scale: [1, 1.25, 1] } : {}}
+                              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                            />
+                            <circle
+                              cx={node.x}
+                              cy={node.y}
+                              r={isSelected ? 7 : 5}
+                              fill={isSelected ? "var(--accent)" : "oklch(0.24 0.025 260)"}
+                              stroke={isSelected ? "var(--foreground)" : "var(--primary)"}
+                              strokeWidth={1.5}
+                              className="transition-all duration-300"
+                            />
+                            <text
+                              x={node.x}
+                              y={node.y + 22}
+                              textAnchor="middle"
+                              className={`font-mono text-[9px] uppercase tracking-wider select-none pointer-events-none transition-all duration-300 ${
+                                isSelected ? "fill-accent font-semibold" : "fill-muted-foreground group-hover/node:fill-foreground"
+                              }`}
+                            >
+                              {node.label}
+                            </text>
+                          </g>
+                        );
+                      })}
+                    </svg>
+                  )}
                 </div>
 
                 {/* Details card explaining selected node */}
                 <div className="rounded-2xl border border-border bg-[#0a0f1e]/30 p-5 min-h-[100px] flex flex-col justify-center">
                   <div className="text-xs font-mono uppercase tracking-widest text-accent">
-                    {activeInfo.title}
+                    {activeProduct === "nova" ? currentNovaInfo.title : currentEnvxInfo.title}
                   </div>
                   <p className="mt-2 text-xs text-muted-foreground leading-relaxed font-light">
-                    {activeInfo.desc}
+                    {activeProduct === "nova" ? currentNovaInfo.desc : currentEnvxInfo.desc}
                   </p>
                 </div>
               </div>

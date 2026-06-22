@@ -169,31 +169,40 @@ export const resume = {
 
   startup: {
     name: "Eaura",
-    role: "Founder / CEO",
-    status: "Government Approved Startup",
-    mission:
-      "Help senior citizens live independently through a voice-first AI companion paired with thoughtful hardware.",
-    problem:
-      "Aging populations need ambient, dignified assistance — not another app to learn. Existing solutions are either too clinical or too complex.",
-    pillars: [
-      {
-        title: "Voice-first AI",
-        body: "Reminders, conversation, emergency support — designed for the way seniors actually speak.",
-      },
-      {
-        title: "Smart scheduling",
-        body: "Medication, appointments, and daily routines orchestrated quietly in the background.",
-      },
-      {
-        title: "Hardware integration",
-        body: "Purpose-built device that lives in the home — no phones, no screens, no friction.",
-      },
+    founder: "Arunkumar S",
+    role: "Founder & CEO",
+    stage: "MVP Development & Beta Preparation",
+    takeaway: "Eaura is building an ecosystem of AI-powered products that combine intelligent software, privacy-first architecture, and automation to solve meaningful real-world problems. NOVA and envx represent the first steps toward a broader platform spanning personal AI, developer tools, and intelligent systems.",
+    lookingFor: [
+      "Beta Testers",
+      "Early Adopters",
+      "Advisors",
+      "Strategic Partners",
+      "AI Engineers",
+      "Embedded Systems Engineers",
+      "Product Designers",
+      "Researchers",
+      "Angel Investors",
     ],
-    milestones: [
-      "Government approval secured (2025)",
-      "MVP architecture defined",
-      "Hardware/software integration in progress",
-    ],
+    products: {
+      nova: {
+        name: "NOVA",
+        tagline: "Proactive AI Companion",
+        desc: "A proactive, privacy-first AI assistant that combines persistent memory, multi-agent orchestration, and edge computing to help users manage communication, wellness, and daily life."
+      },
+      envx: {
+        name: "envx",
+        tagline: "Secure Secrets Sync",
+        desc: "A developer-focused platform for secure environment variable synchronization and management across teams and projects."
+      }
+    },
+    futureProducts: [
+      "AI assistants",
+      "Automation systems",
+      "Productivity tools",
+      "Robotics",
+      "Intelligent hardware"
+    ]
   },
 
   skills: [
@@ -283,8 +292,8 @@ export const resume = {
 
 export const navItems = [
   { id: "home", label: "Home" },
-  { id: "startup", label: "Venture" },
   { id: "about", label: "About" },
+  { id: "startup", label: "Venture" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "research", label: "Research" },
