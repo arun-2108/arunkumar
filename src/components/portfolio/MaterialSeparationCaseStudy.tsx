@@ -123,7 +123,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
   const [divertedCount, setDivertedCount] = useState(0);
   const [missedCount, setMissedCount] = useState(0);
   const [actuatorExtended, setActuatorExtended] = useState(false);
-  const [lastDetectionLog, setLastDetectionLog] = useState<string>("System initialized. Awaiting materials...");
+  const [lastDetectionLog, setLastDetectionLog] = useState<string>(
+    "System initialized. Awaiting materials...",
+  );
 
   const images = [
     "/Nlc_1.png",
@@ -181,19 +183,22 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
       return;
     }
 
-    spawnTimer.current = window.setInterval(() => {
-      const isDebris = Math.random() < 0.25;
-      const newItem: SimItem = {
-        id: nextId.current++,
-        type: isDebris ? "debris" : "ore",
-        x: -10, // start just off screen left
-        y: 35 + Math.random() * 30, // vertical path variation
-        size: isDebris ? 28 + Math.random() * 12 : 24 + Math.random() * 16,
-        detected: false,
-        diverted: false,
-      };
-      setSimItems((prev) => [...prev, newItem]);
-    }, 1200 / (simSpeed * 0.8));
+    spawnTimer.current = window.setInterval(
+      () => {
+        const isDebris = Math.random() < 0.25;
+        const newItem: SimItem = {
+          id: nextId.current++,
+          type: isDebris ? "debris" : "ore",
+          x: -10, // start just off screen left
+          y: 35 + Math.random() * 30, // vertical path variation
+          size: isDebris ? 28 + Math.random() * 12 : 24 + Math.random() * 16,
+          detected: false,
+          diverted: false,
+        };
+        setSimItems((prev) => [...prev, newItem]);
+      },
+      1200 / (simSpeed * 0.8),
+    );
 
     return () => {
       if (spawnTimer.current) clearInterval(spawnTimer.current);
@@ -213,8 +218,8 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
       const actuatorZoneX = 75; // pneumatic cylinder line at 75%
 
       setSimItems((prevItems) => {
-        let updated = prevItems.map((item) => {
-          let nextX = item.x + speed;
+        const updated = prevItems.map((item) => {
+          const nextX = item.x + speed;
           let nextDetected = item.detected;
           let nextDiverted = item.diverted;
 
@@ -223,19 +228,27 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
             nextDetected = true;
             if (item.type === "debris") {
               setLastDetectionLog(
-                `[DETECTION] ID #${item.id} - Target: FOREIGN DEBRIS | Conf: ${(97.2 + Math.random() * 2.5).toFixed(1)}% | Pos: X=35.0%`
+                `[DETECTION] ID #${item.id} - Target: FOREIGN DEBRIS | Conf: ${(97.2 + Math.random() * 2.5).toFixed(1)}% | Pos: X=35.0%`,
               );
             }
           }
 
           // Pneumatic Actuation event
-          if (nextX >= actuatorZoneX && item.x < actuatorZoneX && item.detected && item.type === "debris" && !item.diverted) {
+          if (
+            nextX >= actuatorZoneX &&
+            item.x < actuatorZoneX &&
+            item.detected &&
+            item.type === "debris" &&
+            !item.diverted
+          ) {
             nextDiverted = true;
             // Trigger visual piston extension
             setActuatorExtended(true);
             setTimeout(() => setActuatorExtended(false), 140);
             setDivertedCount((d) => d + 1);
-            setLastDetectionLog(`[ACTUATION] ID #${item.id} - Pneumatic rod extended. Diverting debris...`);
+            setLastDetectionLog(
+              `[ACTUATION] ID #${item.id} - Pneumatic rod extended. Diverting debris...`,
+            );
           }
 
           return {
@@ -252,7 +265,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
             setScannedCount((s) => s + 1);
             if (item.type === "debris" && !item.diverted) {
               setMissedCount((m) => m + 1);
-              setLastDetectionLog(`[WARNING] ID #${item.id} - Foreign debris missed sorting threshold!`);
+              setLastDetectionLog(
+                `[WARNING] ID #${item.id} - Foreign debris missed sorting threshold!`,
+              );
             }
           }
         });
@@ -269,6 +284,7 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
     return () => {
       if (loopRef.current) cancelAnimationFrame(loopRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [simRunning, simSpeed]);
 
   const resetSimStats = () => {
@@ -357,7 +373,8 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 AI-Powered Industrial Material Separation System
               </h1>
               <p className="mt-4 text-xl text-muted-foreground font-light leading-relaxed">
-                Smart automation combining high-speed computer vision, real-time edge processing, and pneumatic actuation for sorting conveyor flows.
+                Smart automation combining high-speed computer vision, real-time edge processing,
+                and pneumatic actuation for sorting conveyor flows.
               </p>
 
               {/* Metadata Cards */}
@@ -383,7 +400,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                     <Briefcase size={16} />
                     <span className="text-[10px] font-mono uppercase tracking-wider">Role</span>
                   </div>
-                  <div className="text-xs font-semibold leading-normal">Mechanical Design & CAD</div>
+                  <div className="text-xs font-semibold leading-normal">
+                    Mechanical Design & CAD
+                  </div>
                 </div>
               </div>
 
@@ -476,10 +495,14 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 High-Speed Sorting Bottlenecks
               </h2>
               <p className="mt-4 text-muted-foreground leading-relaxed">
-                Industrial material handling conveyors transport massive flows of raw materials at high speeds. During transport, unwanted foreign objects (like metal shards, timber chunks, or high-density rocks) frequently infiltrate the stream.
+                Industrial material handling conveyors transport massive flows of raw materials at
+                high speeds. During transport, unwanted foreign objects (like metal shards, timber
+                chunks, or high-density rocks) frequently infiltrate the stream.
                 <br />
                 <br />
-                If these foreign objects bypass inspection, they cause severe damage to downstream processing units (jaw crushers, pulverizers, or screens). Traditional systems rely on manual sorting under hazardous conditions, resulting in:
+                If these foreign objects bypass inspection, they cause severe damage to downstream
+                processing units (jaw crushers, pulverizers, or screens). Traditional systems rely
+                on manual sorting under hazardous conditions, resulting in:
               </p>
 
               <div className="mt-8 rounded-2xl border border-border bg-surface/20 p-6">
@@ -488,7 +511,10 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                   <span>Project Objective</span>
                 </div>
                 <p className="text-sm text-foreground/90 leading-relaxed font-light">
-                  Design a robust, automated inline sorting concept capable of scanning raw materials under high conveyor velocities (up to $3.5\text{ m/s}$), detecting foreign anomalies, and triggering rapid mechanical diversion mechanisms without halting belt operations.
+                  Design a robust, automated inline sorting concept capable of scanning raw
+                  materials under high conveyor velocities (up to $3.5\text{m / s}$), detecting
+                  foreign anomalies, and triggering rapid mechanical diversion mechanisms without
+                  halting belt operations.
                 </p>
               </div>
             </div>
@@ -523,7 +549,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                       className="border border-border/60 bg-background/50 rounded-xl p-4 transition-colors hover:border-accent/40"
                     >
                       <div className="text-sm font-semibold text-accent mb-1">{vul.title}</div>
-                      <div className="text-xs text-muted-foreground leading-normal font-light">{vul.desc}</div>
+                      <div className="text-xs text-muted-foreground leading-normal font-light">
+                        {vul.desc}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -531,13 +559,18 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
 
               {/* FMEA Process block */}
               <div className="rounded-3xl border border-border bg-surface/40 backdrop-blur p-6 md:p-8">
-                <h3 className="text-xl font-semibold mb-3">Failure Mode & Effects Analysis (FMEA)</h3>
+                <h3 className="text-xl font-semibold mb-3">
+                  Failure Mode & Effects Analysis (FMEA)
+                </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                  To guide design priorities, I led the FMEA study on sorting processes. We evaluated failure modes by calculating the Risk Priority Number:
+                  To guide design priorities, I led the FMEA study on sorting processes. We
+                  evaluated failure modes by calculating the Risk Priority Number:
                   <span className="block my-2 font-mono text-xs text-center text-accent py-1.5 border border-border/40 rounded bg-background/50">
                     RPN = Severity (S) × Occurrence (O) × Detection (D)
                   </span>
-                  Our assessment pinpointed uncrushable metallic debris as the highest hazard RPN (360), which justified investing in a high-speed vision camera coupled with low-latency pneumatic blow-off arrays.
+                  Our assessment pinpointed uncrushable metallic debris as the highest hazard RPN
+                  (360), which justified investing in a high-speed vision camera coupled with
+                  low-latency pneumatic blow-off arrays.
                 </p>
                 <div className="mt-4 flex items-center gap-2 text-xs font-mono text-accent">
                   <Activity size={14} /> FMEA RISK THRESHOLD SET: RPN &gt; 120 MANDATES AUTOMATION
@@ -557,7 +590,8 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
               Developing the Concept Flow
             </h2>
             <p className="mt-3 text-muted-foreground leading-relaxed font-light">
-              Designing this system required a systematic mechanical and automation review. Explore the main milestones of our design timeline below:
+              Designing this system required a systematic mechanical and automation review. Explore
+              the main milestones of our design timeline below:
             </p>
           </div>
 
@@ -578,7 +612,10 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                     <span className="font-mono text-xs font-bold">{stage.phase}</span>
                     <span className="text-sm font-semibold truncate">{stage.title}</span>
                   </div>
-                  <ChevronRight size={14} className={`hidden md:block transition-transform ${activeStage === idx ? "translate-x-1" : "opacity-35"}`} />
+                  <ChevronRight
+                    size={14}
+                    className={`hidden md:block transition-transform ${activeStage === idx ? "translate-x-1" : "opacity-35"}`}
+                  />
                 </button>
               ))}
             </div>
@@ -605,12 +642,19 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
 
                   <div>
                     <div className="h-px bg-border/40 my-4" />
-                    <h4 className="text-xs font-mono uppercase text-accent/80 mb-3 tracking-wider">Key Tasks</h4>
+                    <h4 className="text-xs font-mono uppercase text-accent/80 mb-3 tracking-wider">
+                      Key Tasks
+                    </h4>
                     <ul className="grid sm:grid-cols-3 gap-3">
                       {timelineStages[activeStage].list.map((item, i) => (
-                        <li key={i} className="flex gap-2 items-start border border-border/40 bg-background/50 rounded-lg p-2.5">
+                        <li
+                          key={i}
+                          className="flex gap-2 items-start border border-border/40 bg-background/50 rounded-lg p-2.5"
+                        >
                           <CheckCircle2 size={12} className="text-accent mt-0.5 shrink-0" />
-                          <span className="text-xs text-foreground/80 leading-normal font-light">{item}</span>
+                          <span className="text-xs text-foreground/80 leading-normal font-light">
+                            {item}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -637,7 +681,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
               </div>
               <h3 className="text-lg font-semibold mb-2">Conveyor Frame Integration</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                Developed mounting trusses that bolt directly to existing conveyor stringer structures without requiring hot work. Adjustable camera positioning slots allow height tuning relative to changing material burden depths.
+                Developed mounting trusses that bolt directly to existing conveyor stringer
+                structures without requiring hot work. Adjustable camera positioning slots allow
+                height tuning relative to changing material burden depths.
               </p>
             </div>
 
@@ -647,7 +693,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
               </div>
               <h3 className="text-lg font-semibold mb-2">Camera Vibration Damping</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                Conveyors generate severe vibration profiles. Designed custom isolator plates with dual-core elastomeric dampeners to absorb high-frequency shaker loads, preventing camera image motion blur.
+                Conveyors generate severe vibration profiles. Designed custom isolator plates with
+                dual-core elastomeric dampeners to absorb high-frequency shaker loads, preventing
+                camera image motion blur.
               </p>
             </div>
 
@@ -657,7 +705,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
               </div>
               <h3 className="text-lg font-semibold mb-2">Pneumatic Ejector Arrays</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                Calculated air manifold delivery values. Designed high-frequency solenoid valves hooked up to double-acting pneumatic actuators. Rapid extend and retract strokes prevent belt scratching.
+                Calculated air manifold delivery values. Designed high-frequency solenoid valves
+                hooked up to double-acting pneumatic actuators. Rapid extend and retract strokes
+                prevent belt scratching.
               </p>
             </div>
           </div>
@@ -665,14 +715,18 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
           {/* Mathematical Calculations Section */}
           <div className="mt-8 border-t border-border/20 pt-8 grid lg:grid-cols-2 gap-8">
             <div className="rounded-3xl border border-border bg-surface/10 p-6 md:p-8">
-              <h3 className="text-xl font-semibold mb-4 text-accent">Response Latency Calculations</h3>
+              <h3 className="text-xl font-semibold mb-4 text-accent">
+                Response Latency Calculations
+              </h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                For successful sorting, the total cycle latency must be less than the material travel time from the camera scan zone to the actuator diversion line.
+                For successful sorting, the total cycle latency must be less than the material
+                travel time from the camera scan zone to the actuator diversion line.
                 <br />
                 <br />
-                Let belt velocity $v = 2.5\text{ m/s}$ and distance $L = 1.8\text{ m}$. The physical travel duration ($t_{travel}$) is:
+                Let belt velocity $v = 2.5\text{m / s}$ and distance $L = 1.8\text{m}$. The physical
+                travel duration ($t_{travel}$) is:
                 <span className="block my-3 font-mono text-xs text-center text-accent py-2 border border-border/40 rounded bg-background/50">
-                  t_travel = L / v = 1.8 / 2.5 = 0.72\text{ s} = 720\text{ ms}
+                  t_travel = L / v = 1.8 / 2.5 = 0.72\text{s} = 720\text{ms}
                 </span>
                 Our computed response pipeline budget breakdown shows:
               </p>
@@ -703,7 +757,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 </div>
               </div>
               <p className="mt-4 text-xs text-muted-foreground leading-normal font-light">
-                Since $t_{total} = 92.5\text{ ms} \ll t_{travel} = 720\text{ ms}$, we establish a generous safety factor of $S_f = 7.78$, allowing robust target confirmation and belt speed adjustment tolerances.
+                Since $t_{total} = 92.5\text{ms} \ll t_{travel} = 720\text{ms}$, we establish a
+                generous safety factor of $S_f = 7.78$, allowing robust target confirmation and belt
+                speed adjustment tolerances.
               </p>
             </div>
 
@@ -714,14 +770,19 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                   CAD Simulation & DFM Review
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed font-light">
-                  The camera support structure underwent FEA analysis to guarantee structural safety against heavy vibration:
+                  The camera support structure underwent FEA analysis to guarantee structural safety
+                  against heavy vibration:
                   <br />
                   <br />
-                  - **Natural Frequency Analysis:** Frame natural frequencies were calculated to ensure they sit well outside the main conveyor running frequencies (20-60 Hz), preventing structural resonance.
+                  - **Natural Frequency Analysis:** Frame natural frequencies were calculated to
+                  ensure they sit well outside the main conveyor running frequencies (20-60 Hz),
+                  preventing structural resonance.
                   <br />
-                  - **Enclosure Design:** Designed a sealed IP66 enclosure with built-in air knives. Constant compressed air sweeps dust particles off the optical glass window, eliminating manually scheduled cleaning.
-                  <br />
-                  - **DFM Optimization:** Utilized standard laser-cut sheet plates and standardized ISO metric bolts to lower manufacturing fabrication costs.
+                  - **Enclosure Design:** Designed a sealed IP66 enclosure with built-in air knives.
+                  Constant compressed air sweeps dust particles off the optical glass window,
+                  eliminating manually scheduled cleaning.
+                  <br />- **DFM Optimization:** Utilized standard laser-cut sheet plates and
+                  standardized ISO metric bolts to lower manufacturing fabrication costs.
                 </p>
               </div>
               <div className="mt-6 border-t border-border/40 pt-4 flex justify-between text-xs font-mono text-muted-foreground">
@@ -742,7 +803,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
               Interactive System Simulator
             </h2>
             <p className="mt-3 text-muted-foreground leading-relaxed font-light">
-              Observe how the mechatronics and computer vision pipeline cooperate. Select the conveyor belt speed to simulate sorting, and watch the pneumatic actuator remove foreign debris in real time.
+              Observe how the mechatronics and computer vision pipeline cooperate. Select the
+              conveyor belt speed to simulate sorting, and watch the pneumatic actuator remove
+              foreign debris in real time.
             </p>
           </div>
 
@@ -774,7 +837,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
 
               {/* Speed presets */}
               <div className="flex items-center gap-2 border border-border bg-background/60 p-1 rounded-full text-xs">
-                <span className="px-2 text-muted-foreground font-mono text-[10px] uppercase">Speed:</span>
+                <span className="px-2 text-muted-foreground font-mono text-[10px] uppercase">
+                  Speed:
+                </span>
                 {[
                   { label: "1.5m/s", val: 1 },
                   { label: "2.5m/s", val: 2 },
@@ -784,7 +849,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                     key={s.val}
                     onClick={() => setSimSpeed(s.val)}
                     className={`rounded-full px-3 py-1 transition cursor-pointer font-mono font-medium ${
-                      simSpeed === s.val ? "bg-accent text-accent-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                      simSpeed === s.val
+                        ? "bg-accent text-accent-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {s.label}
@@ -796,11 +863,15 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
             {/* Canvas Conveyor Lane */}
             <div className="relative h-48 bg-zinc-950 border-b border-border overflow-hidden select-none flex items-center">
               {/* Belt background pattern */}
-              <div className="absolute inset-0 bg-repeat-x opacity-15" style={{
-                backgroundImage: "radial-gradient(circle, var(--color-border) 2px, transparent 2px)",
-                backgroundSize: "24px 24px",
-                animation: simRunning ? `spin-slow ${6 / simSpeed}s linear infinite` : "none",
-              }} />
+              <div
+                className="absolute inset-0 bg-repeat-x opacity-15"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, var(--color-border) 2px, transparent 2px)",
+                  backgroundSize: "24px 24px",
+                  animation: simRunning ? `spin-slow ${6 / simSpeed}s linear infinite` : "none",
+                }}
+              />
 
               {/* Conveyor center rollers */}
               <div className="absolute inset-x-0 h-1 bg-border/40" />
@@ -830,7 +901,12 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
               >
                 {/* Cylinder main body */}
                 <div className="w-full h-8 bg-zinc-700 border-b border-border flex items-center justify-center">
-                  <Zap size={10} className={actuatorExtended ? "text-accent animate-pulse-glow" : "text-muted-foreground"} />
+                  <Zap
+                    size={10}
+                    className={
+                      actuatorExtended ? "text-accent animate-pulse-glow" : "text-muted-foreground"
+                    }
+                  />
                 </div>
                 {/* Actuator shaft rod */}
                 <div className="w-2 flex-1 bg-zinc-400" />
@@ -843,9 +919,7 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 <div
                   key={item.id}
                   className={`absolute rounded-xl flex items-center justify-center transition-all duration-75 ${
-                    item.diverted
-                      ? "rotate-45 translate-y-12 opacity-0"
-                      : "hover:scale-105"
+                    item.diverted ? "rotate-45 translate-y-12 opacity-0" : "hover:scale-105"
                   }`}
                   style={{
                     left: `${item.x}%`,
@@ -899,7 +973,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 </span>
                 <div className="text-3xl font-semibold mt-1 text-accent font-mono flex items-center gap-2">
                   {divertedCount}
-                  {divertedCount > 0 && <TrendingDown size={18} className="text-accent animate-pulse-glow" />}
+                  {divertedCount > 0 && (
+                    <TrendingDown size={18} className="text-accent animate-pulse-glow" />
+                  )}
                 </div>
                 <span className="text-[9px] text-accent/80 font-light leading-normal">
                   Correctly pushed off conveyor lane
@@ -910,7 +986,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 <span className="text-[10px] font-mono text-red-500 uppercase tracking-widest">
                   Missed debris
                 </span>
-                <div className="text-3xl font-semibold mt-1 text-red-500 font-mono">{missedCount}</div>
+                <div className="text-3xl font-semibold mt-1 text-red-500 font-mono">
+                  {missedCount}
+                </div>
                 <span className="text-[9px] text-red-500/80 font-light leading-normal">
                   Objects missed or bypassed limits
                 </span>
@@ -919,7 +997,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
               {/* Dynamic stats diagnostics */}
               <div className="p-5 bg-black/20 flex flex-col justify-between">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-[9px] font-mono text-muted-foreground uppercase">Diagnostics</span>
+                  <span className="text-[9px] font-mono text-muted-foreground uppercase">
+                    Diagnostics
+                  </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[8px] font-mono uppercase bg-emerald-500/10 text-emerald-500 border border-emerald-500/30">
                     <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse-glow" />
                     ONLINE
@@ -944,8 +1024,12 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
 
             {/* Terminal console logger display */}
             <div className="bg-black/60 px-6 py-3 border-t border-border/80 flex items-center gap-3">
-              <span className="text-[10px] font-mono text-accent uppercase font-bold shrink-0">System Log:</span>
-              <span className="text-[10px] font-mono text-zinc-300 truncate font-light select-text">{lastDetectionLog}</span>
+              <span className="text-[10px] font-mono text-accent uppercase font-bold shrink-0">
+                System Log:
+              </span>
+              <span className="text-[10px] font-mono text-zinc-300 truncate font-light select-text">
+                {lastDetectionLog}
+              </span>
             </div>
           </div>
         </section>
@@ -966,7 +1050,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
                   Sorting Latency
                 </div>
-                <div className="mt-2 text-4xl font-semibold text-foreground font-mono">&lt; 93ms</div>
+                <div className="mt-2 text-4xl font-semibold text-foreground font-mono">
+                  &lt; 93ms
+                </div>
                 <div className="text-xs text-muted-foreground mt-1">Total end-to-end delay</div>
               </div>
             </div>
@@ -990,9 +1076,7 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                   YOLO Accuracy
                 </div>
                 <div className="mt-2 text-xl font-semibold text-foreground font-mono">98.4% AP</div>
-                <div className="text-xs text-muted-foreground mt-1">
-                  Average precision target
-                </div>
+                <div className="text-xs text-muted-foreground mt-1">Average precision target</div>
               </div>
             </div>
 
@@ -1001,7 +1085,9 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
                 <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
                   Operating Belt Speed
                 </div>
-                <div className="mt-2 text-xl font-semibold text-foreground font-mono">Up to 3.5m/s</div>
+                <div className="mt-2 text-xl font-semibold text-foreground font-mono">
+                  Up to 3.5m/s
+                </div>
                 <div className="text-xs text-muted-foreground mt-1">High-throughput compliance</div>
               </div>
             </div>
@@ -1012,7 +1098,8 @@ export function MaterialSeparationCaseStudy({ onClose }: MaterialSeparationCaseS
             <div className="rounded-3xl border border-border bg-surface/20 p-6 md:p-8">
               <h3 className="text-lg font-semibold mb-4 text-accent">My Technical Role</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed font-light">
-                As the **Mechanical Design Engineer & CAD Designer**, I was responsible for bridging the physical environment with the digital vision framework:
+                As the **Mechanical Design Engineer & CAD Designer**, I was responsible for bridging
+                the physical environment with the digital vision framework:
               </p>
               <ul className="space-y-3.5 text-sm text-foreground/90 font-light">
                 {[

@@ -88,7 +88,14 @@ export const resume = {
       duration: "May 2025 – Present",
       summary:
         "Designed a conceptual automated material separation system capable of detecting and removing unwanted foreign objects from a high-throughput industrial conveyor system using computer vision, machine learning, and automated actuation.",
-      tech: ["SolidWorks", "Computer Vision", "Python", "Pneumatic Systems", "Conveyor Design", "FMEA"],
+      tech: [
+        "SolidWorks",
+        "Computer Vision",
+        "Python",
+        "Pneumatic Systems",
+        "Conveyor Design",
+        "FMEA",
+      ],
       disciplines: ["Mechanical Design", "AI Systems Engineering", "Industrial Automation"],
       outcomes: [
         "Developed overall system architecture and CAD layouts",

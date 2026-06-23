@@ -37,7 +37,10 @@ export default function App() {
       setActiveCaseStudy("Driver Authentication & Monitoring System");
     } else if (title === "Compact Agricultural E-Transportation Vehicle") {
       setActiveCaseStudy("Compact Agricultural E-Transportation Vehicle");
-    } else if (title === "AI-Powered Industrial Material Separation System") {
+    } else if (
+      title === "AI-Powered Industrial Material Separation System" ||
+      title === "AI-Assisted Lignite Rock Separation System"
+    ) {
       setActiveCaseStudy("AI-Powered Industrial Material Separation System");
     } else {
       toast.info(`Case study for "${title}" is in development!`, {
