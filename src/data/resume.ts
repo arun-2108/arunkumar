@@ -83,18 +83,18 @@ export const resume = {
       images: ["/banana_unit.png", "/banana-mpu.png"],
     },
     {
-      title: "AI-Assisted Lignite Rock Separation System",
-      client: "NLC India Limited, Neyveli",
+      title: "AI-Powered Industrial Material Separation System",
+      client: "Industrial Automation Concept",
       duration: "May 2025 – Present",
       summary:
-        "Designed and developed an AI-assisted rock separation system for lignite mining operations using computer vision, conveyor systems, pneumatic diversion mechanisms, and mechanical screening.",
-      tech: ["SolidWorks", "YOLOv11", "Python", "Pneumatic Systems", "Conveyor Design"],
-      disciplines: ["Mechanical Design", "AI", "Heavy Industry"],
+        "Designed a conceptual automated material separation system capable of detecting and removing unwanted foreign objects from a high-throughput industrial conveyor system using computer vision, machine learning, and automated actuation.",
+      tech: ["SolidWorks", "Computer Vision", "Python", "Pneumatic Systems", "Conveyor Design", "FMEA"],
+      disciplines: ["Mechanical Design", "AI Systems Engineering", "Industrial Automation"],
       outcomes: [
-        "Designed conveyor-based material handling system",
-        "Integrated YOLOv11 object detection",
-        "Developed pneumatic rock diversion mechanism",
-        "Improved lignite stream quality through automated segregation",
+        "Developed overall system architecture and CAD layouts",
+        "Designed conveyor integration and camera mounting frames",
+        "Simulated real-time computer vision detection pipeline",
+        "Designed pneumatic actuation concepts for rapid material sorting",
       ],
       images: [
         "/Nlc_1.png",

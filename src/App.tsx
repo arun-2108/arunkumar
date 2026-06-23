@@ -5,6 +5,7 @@ import { Nav } from "@/components/portfolio/Nav";
 import { BananaCaseStudy } from "@/components/portfolio/BananaCaseStudy";
 import { AuthenDriveCaseStudy } from "@/components/portfolio/AuthenDriveCaseStudy";
 import { BananaVehicleCaseStudy } from "@/components/portfolio/BananaVehicleCaseStudy";
+import { MaterialSeparationCaseStudy } from "@/components/portfolio/MaterialSeparationCaseStudy";
 import {
   Hero,
   About,
@@ -36,6 +37,8 @@ export default function App() {
       setActiveCaseStudy("Driver Authentication & Monitoring System");
     } else if (title === "Compact Agricultural E-Transportation Vehicle") {
       setActiveCaseStudy("Compact Agricultural E-Transportation Vehicle");
+    } else if (title === "AI-Powered Industrial Material Separation System") {
+      setActiveCaseStudy("AI-Powered Industrial Material Separation System");
     } else {
       toast.info(`Case study for "${title}" is in development!`, {
         description: "The complete design and documentation will be published soon.",
@@ -60,6 +63,8 @@ export default function App() {
         <AuthenDriveCaseStudy onClose={handleCloseCaseStudy} />
       ) : activeCaseStudy === "Compact Agricultural E-Transportation Vehicle" ? (
         <BananaVehicleCaseStudy onClose={handleCloseCaseStudy} />
+      ) : activeCaseStudy === "AI-Powered Industrial Material Separation System" ? (
+        <MaterialSeparationCaseStudy onClose={handleCloseCaseStudy} />
       ) : (
         <>
           <Nav />
